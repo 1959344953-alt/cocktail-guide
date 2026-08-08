@@ -29,6 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="zh-CN">
       <head>
         <meta name="msvalidate.01" content="E2F6731EDB918688BD5C7F888A3A4C41" />
+        <meta name="baidu-site-verification" content="codeva-1dm973mS8v" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
