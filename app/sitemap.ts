@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { ALL_COCKTAILS } from "@/lib/data";
 
-const BASE = process.env.NEXT_PUBLIC_SITE_URL || "https://cocktail-guide-nu.vercel.app";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL || "https://jitui.chuangye-yanzheng.top";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = ["", "/cocktails", "/bar", "/taste", "/convenience", "/stories", "/publish"].map((p) => ({
