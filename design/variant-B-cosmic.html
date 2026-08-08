@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>调酒指南 · 变体B 清爽小宇宙</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbfbf9; --panel:#ffffff; --ink:#1a1a1a; --sub:#8a8a86; --line:#eeeeea;
+  --cyan:#1AA6B0; --cyan2:#29B7C6; --cyanbg:#e9f7f8; --peach:#f4a259;
+  --r:18px; --sh:0 6px 24px rgba(20,40,45,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:"Noto Sans SC",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+/* 星空点阵底纹（极淡） */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.6;
+  background-image:radial-gradient(circle at 15% 12%, rgba(41,183,198,.14) 0 1.2px, transparent 2px),
+    radial-gradient(circle at 78% 30%, rgba(41,183,198,.10) 0 1px, transparent 2px),
+    radial-gradient(circle at 45% 70%, rgba(0,0,0,.05) 0 1px, transparent 2px),
+    radial-gradient(circle at 88% 82%, rgba(41,183,198,.08) 0 1px, transparent 2px);
+  background-size:200px 200px,260px 260px,220px 220px,180px 180px;}
+.app{max-width:440px;margin:0 auto;position:relative;z-index:1;padding-bottom:90px;min-height:100vh}
+.serif{font-family:"Noto Serif SC",serif}
+/* 顶栏 */
+.top{position:sticky;top:0;z-index:20;background:rgba(251,251,249,.82);backdrop-filter:blur(12px);padding:16px 20px 10px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand .mark{width:36px;height:36px;border-radius:11px;background:var(--cyan2);color:#fff;display:grid;place-items:center;font-size:20px}
+.brand h1{font-size:20px;font-weight:700;letter-spacing:1px}
+.brand small{color:var(--sub);font-size:11px;letter-spacing:2px;display:block;margin-top:-3px}
+.search{margin-top:14px;display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 16px;box-shadow:var(--sh)}
+.search input{flex:1;border:0;background:none;font-size:15px;outline:none;color:var(--ink)}
+.search input::placeholder{color:var(--sub)}
+.search .ic{color:var(--cyan)}
+.page{display:none;padding:20px}
+.page.on{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.sec{display:flex;align-items:baseline;justify-content:space-between;margin:28px 0 14px}
+.sec h2{font-size:20px;font-weight:700;letter-spacing:.5px}
+.sec a{color:var(--cyan);font-size:13px;text-decoration:none}
+/* Hero */
+.hero{border-radius:24px;background:linear-gradient(150deg,#effafb,#fff);border:1px solid var(--line);
+  padding:26px 24px;position:relative;overflow:hidden;box-shadow:var(--sh)}
+.hero .orbit{position:absolute;right:-40px;top:-40px;width:150px;height:150px;border-radius:50%;border:1.5px dashed rgba(41,183,198,.35)}
+.hero .orbit::after{content:"🍸";position:absolute;font-size:60px;top:44px;left:44px}
+.hero .ey{color:var(--cyan);font-size:12px;letter-spacing:3px;font-weight:700}
+.hero h3{font-size:27px;font-weight:700;margin:10px 0 6px;line-height:1.35;max-width:220px}
+.hero p{color:var(--sub);font-size:14px;max-width:220px}
+.cta{margin-top:18px;background:var(--cyan2);color:#fff;font-weight:700;border:0;border-radius:12px;padding:12px 22px;font-size:14px;cursor:pointer}
+/* 快捷入口 */
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
+.qi{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 6px;text-align:center;cursor:pointer;transition:.2s;box-shadow:var(--sh)}
+.qi:hover{transform:translateY(-3px);border-color:var(--cyan2)}
+.qi .e{font-size:24px}
+.qi span{display:block;font-size:12px;color:var(--sub);margin-top:6px;font-weight:500}
+/* 横滑卡 */
+.rail{display:flex;gap:14px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}
+.rail::-webkit-scrollbar{height:0}
+.rcard{scroll-snap-align:start;min-width:210px;background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;cursor:pointer;transition:.2s;box-shadow:var(--sh)}
+.rcard:hover{transform:translateY(-3px)}
+.rcard .im{height:120px;display:grid;place-items:center;font-size:56px}
+.rcard .bd{padding:14px 16px 16px}
+.rcard .cn{font-size:17px;font-weight:700}
+.rcard .en{color:var(--cyan);font-size:11px;letter-spacing:1px}
+.rcard .meta{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.tag{font-size:11px;color:var(--sub);background:#f5f5f2;border-radius:999px;padding:3px 10px}
+.tag.c{color:var(--cyan);background:var(--cyanbg)}
+/* 列表 */
+.filters{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px}
+.filters::-webkit-scrollbar{height:0}
+.chip{white-space:nowrap;border:1px solid var(--line);color:var(--sub);background:#fff;border-radius:999px;padding:8px 16px;font-size:13px;cursor:pointer;transition:.2s}
+.chip.on{background:var(--cyan2);color:#fff;border-color:transparent;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.gcard{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;cursor:pointer;transition:.2s;box-shadow:var(--sh)}
+.gcard:hover{transform:translateY(-2px)}
+.gcard .im{height:100px;display:grid;place-items:center;font-size:46px}
+.gcard .bd{padding:12px 14px 14px}
+.gcard .cn{font-size:15px;font-weight:700}
+.gcard .en{color:var(--cyan);font-size:10px;letter-spacing:1px}
+.gcard .mt{margin-top:6px;font-size:11px;color:var(--sub)}
+/* 我有什么酒 */
+.hint{color:var(--sub);font-size:13px;margin-bottom:16px}
+.spirits{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.sp{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 8px;text-align:center;cursor:pointer;transition:.2s;position:relative;box-shadow:var(--sh)}
+.sp .e{font-size:30px}
+.sp .n{font-size:13px;margin-top:6px;font-weight:500}
+.sp .en{font-size:10px;color:var(--sub)}
+.sp.on{border-color:var(--cyan2);background:var(--cyanbg)}
+.sp.on::after{content:"✓";position:absolute;top:8px;right:10px;color:var(--cyan);font-weight:700}
+.result{margin-top:24px}
+.result .cnt{color:var(--cyan);font-size:13px;font-weight:700;margin-bottom:12px}
+/* 详情 */
+.det{padding:0}
+.det .head{height:200px;display:grid;place-items:center;font-size:110px;position:relative}
+.det .back{position:absolute;top:16px;left:16px;background:#fff;border:1px solid var(--line);color:var(--ink);border-radius:50%;width:40px;height:40px;cursor:pointer;font-size:20px;box-shadow:var(--sh)}
+.det .wrap{padding:8px 20px 20px}
+.det h2{font-size:26px;font-weight:700}
+.det .en{color:var(--cyan);letter-spacing:2px;font-size:12px;margin-bottom:12px}
+.det .metar{display:flex;gap:8px;margin:12px 0}
+.block{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;margin-top:16px;box-shadow:var(--sh)}
+.block h4{font-size:16px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.ing{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)}
+.ing:last-child{border:0}
+.ing .amt{color:var(--cyan);font-weight:500}
+.step{display:flex;gap:12px;padding:9px 0}
+.step .no{width:26px;height:26px;flex:none;border-radius:50%;background:var(--cyanbg);color:var(--cyan);font-weight:700;display:grid;place-items:center;font-size:13px}
+.video{display:flex;align-items:center;gap:14px;background:var(--cyanbg);border-radius:18px;padding:16px;margin-top:16px;text-decoration:none;color:var(--ink)}
+.video .pl{width:46px;height:46px;border-radius:50%;background:var(--cyan2);color:#fff;display:grid;place-items:center;font-size:18px;flex:none}
+.story{color:#5a5a56;font-size:14px;line-height:1.85}
+/* 发布 */
+.form label{display:block;font-size:13px;color:var(--sub);margin:16px 0 6px;font-weight:500}
+.form input,.form textarea{width:100%;background:#fff;border:1px solid var(--line);color:var(--ink);border-radius:12px;padding:12px 14px;font-size:15px;outline:none;font-family:inherit}
+.form input:focus,.form textarea:focus{border-color:var(--cyan2)}
+.form textarea{min-height:90px;resize:vertical}
+.addrow{display:flex;gap:8px}
+.addrow input{flex:1}
+.mini{background:var(--cyanbg);border:0;color:var(--cyan);border-radius:10px;padding:0 16px;cursor:pointer;font-weight:700}
+.submit{width:100%;margin-top:22px;background:var(--cyan2);color:#fff;font-weight:700;border:0;border-radius:14px;padding:14px;font-size:15px;cursor:pointer}
+/* 故事 */
+.scard{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px;cursor:pointer;transition:.2s;display:flex;gap:14px;box-shadow:var(--sh)}
+.scard:hover{transform:translateY(-2px)}
+.scard .cov{font-size:40px;flex:none}
+.scard .stag{font-size:11px;color:var(--cyan);background:var(--cyanbg);border-radius:999px;padding:2px 10px;display:inline-block;margin-bottom:6px;font-weight:700}
+.scard h4{font-size:16px;font-weight:700;margin-bottom:4px}
+.scard p{color:var(--sub);font-size:13px}
+/* tabbar */
+.tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:440px;z-index:30;
+  background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-top:1px solid var(--line);
+  display:grid;grid-template-columns:repeat(5,1fr);padding:8px 6px calc(8px + env(safe-area-inset-bottom))}
+.tb{background:none;border:0;color:var(--sub);font-size:11px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px;font-weight:500}
+.tb .e{font-size:20px}
+.tb.on{color:var(--cyan)}
+.tb.mid .e{background:var(--cyan2);color:#fff;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;margin-top:-20px;box-shadow:0 6px 16px rgba(41,183,198,.4);font-size:22px}
+.empty{text-align:center;color:var(--sub);padding:40px 0;font-size:14px}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <div class="brand">
+      <div class="mark">🍸</div>
+      <div><h1>调酒指南</h1><small>MIX YOUR UNIVERSE</small></div>
+    </div>
+    <div class="search"><span class="ic">🔍</span><input id="q" placeholder="搜配方 / 基酒 / 故事…" oninput="doSearch(this.value)"></div>
+  </div>
+
+  <!-- 首页 -->
+  <div class="page on" id="p-home">
+    <div class="hero">
+      <div class="orbit"></div>
+      <div class="ey">今日推荐</div>
+      <h3>今夜，来一杯尼格罗尼</h3>
+      <p>苦甜平衡，等比三杯，永不出错。</p>
+      <button class="cta" onclick="openDetail('negroni')">查看配方 →</button>
+    </div>
+    <div class="quick">
+      <div class="qi" onclick="go('mixer')"><div class="e">🧪</div><span>我有什么酒</span></div>
+      <div class="qi" onclick="go('list')"><div class="e">📖</div><span>配方库</span></div>
+      <div class="qi" onclick="go('story')"><div class="e">📜</div><span>故事文化</span></div>
+      <div class="qi" onclick="go('publish')"><div class="e">✍️</div><span>发配方</span></div>
+    </div>
+    <div class="sec"><h2>热门配方</h2><a onclick="go('list')">全部 ›</a></div>
+    <div class="rail" id="home-rail"></div>
+    <div class="sec"><h2>故事与文化</h2><a onclick="go('story')">更多 ›</a></div>
+    <div id="home-story"></div>
+  </div>
+
+  <div class="page" id="p-list">
+    <div class="sec" style="margin-top:4px"><h2>配方库</h2></div>
+    <div class="filters" id="filters"></div>
+    <div class="grid" id="list-grid"></div>
+  </div>
+
+  <div class="page" id="p-mixer">
+    <div class="sec" style="margin-top:4px"><h2>我有什么酒</h2></div>
+    <p class="hint">选出你手边有的基酒，看看能调出哪些酒 👇</p>
+    <div class="spirits" id="spirits"></div>
+    <div class="result" id="mix-result"></div>
+  </div>
+
+  <div class="page det" id="p-detail"></div>
+
+  <div class="page" id="p-publish">
+    <div class="sec" style="margin-top:4px"><h2>发布配方</h2></div>
+    <div class="form">
+      <label>配方名称</label><input placeholder="例如：夜航船特调">
+      <label>基酒</label><input placeholder="例如：金酒">
+      <label>一句话简介</label><input placeholder="它喝起来是什么感觉？">
+      <label>配料</label>
+      <div class="addrow"><input placeholder="配料，如 金酒 30ml"><button class="mini" onclick="alert('演示：新增一行配料')">＋</button></div>
+      <label>制作步骤</label><textarea placeholder="一步一行，讲清楚顺序与手法…"></textarea>
+      <label>视频链接（选填）</label><input placeholder="B站 / 抖音 链接">
+      <label>背后的故事（选填）</label><textarea placeholder="这杯酒有什么来历或你的心情？"></textarea>
+      <button class="submit" onclick="alert('演示原型：这里会提交到你自己的配方库')">发布配方</button>
+    </div>
+  </div>
+
+  <div class="page" id="p-story">
+    <div class="sec" style="margin-top:4px"><h2>故事 · 知识 · 文化</h2></div>
+    <div id="story-list"></div>
+    <div class="sec"><h2>基酒图鉴</h2></div>
+    <div class="spirits" id="spirit-dex"></div>
+  </div>
+
+  <div class="tabbar">
+    <button class="tb on" data-p="home" onclick="go('home')"><span class="e">🏠</span>首页</button>
+    <button class="tb" data-p="list" onclick="go('list')"><span class="e">📖</span>配方</button>
+    <button class="tb mid" data-p="mixer" onclick="go('mixer')"><span class="e">🧪</span></button>
+    <button class="tb" data-p="story" onclick="go('story')"><span class="e">📜</span>故事</button>
+    <button class="tb" data-p="publish" onclick="go('publish')"><span class="e">✍️</span>发布</button>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script>
+const C=window.COCKTAILS,S=window.STORIES,SP=window.SPIRITS;
+let curFilter="全部",picked=new Set();
+function go(p){document.querySelectorAll('.page').forEach(e=>e.classList.remove('on'));
+  document.getElementById('p-'+p).classList.add('on');
+  document.querySelectorAll('.tb').forEach(t=>t.classList.toggle('on',t.dataset.p===p));window.scrollTo(0,0);}
+function imgBg(c){return `background:radial-gradient(circle at 50% 35%, ${c}22, #f7f7f4 72%)`;}
+
+document.getElementById('home-rail').innerHTML=C.slice(0,6).map(c=>`
+  <div class="rcard" onclick="openDetail('${c.id}')">
+    <div class="im" style="${imgBg(c.color)}">${c.emoji}</div>
+    <div class="bd"><div class="cn">${c.name}</div><div class="en">${c.en}</div>
+    <div class="meta"><span class="tag c">${c.base}</span><span class="tag">${c.level}</span><span class="tag">${c.abv}</span></div></div>
+  </div>`).join('');
+
+document.getElementById('home-story').innerHTML=S.map(s=>`
+  <div class="scard" onclick="alert('演示：打开文章《${s.title}》')">
+    <div class="cov">${s.cover}</div><div><span class="stag">${s.tag}</span><h4>${s.title}</h4><p>${s.excerpt}</p></div></div>`).join('');
+
+const cats=["全部",...new Set(C.map(c=>c.base))];
+document.getElementById('filters').innerHTML=cats.map(c=>`<div class="chip ${c==='全部'?'on':''}" onclick="setFilter('${c}')">${c}</div>`).join('');
+function setFilter(c){curFilter=c;document.querySelectorAll('#filters .chip').forEach(x=>x.classList.toggle('on',x.textContent===c));renderList();}
+function renderList(){const d=curFilter==='全部'?C:C.filter(c=>c.base===curFilter);
+  document.getElementById('list-grid').innerHTML=d.map(c=>`
+    <div class="gcard" onclick="openDetail('${c.id}')"><div class="im" style="${imgBg(c.color)}">${c.emoji}</div>
+    <div class="bd"><div class="cn">${c.name}</div><div class="en">${c.en}</div><div class="mt">${c.base} · ${c.abv} · ${c.level}</div></div></div>`).join('');}
+renderList();
+
+document.getElementById('spirits').innerHTML=SP.map(s=>`
+  <div class="sp" data-base="${s.name}" onclick="toggleSpirit('${s.name}')"><div class="e">${s.emoji}</div><div class="n">${s.name}</div><div class="en">${s.en}</div></div>`).join('');
+function toggleSpirit(n){picked.has(n)?picked.delete(n):picked.add(n);
+  document.querySelectorAll('#spirits .sp').forEach(e=>e.classList.toggle('on',picked.has(e.dataset.base)));renderMix();}
+function renderMix(){const box=document.getElementById('mix-result');
+  if(picked.size===0){box.innerHTML='<div class="empty">☝️ 先选出你有的基酒</div>';return;}
+  const ok=C.filter(c=>picked.has(c.base));
+  box.innerHTML=`<div class="cnt">用你选的 ${[...picked].join('、')}，可以调 ${ok.length} 杯：</div><div class="grid">`+
+    ok.map(c=>`<div class="gcard" onclick="openDetail('${c.id}')"><div class="im" style="${imgBg(c.color)}">${c.emoji}</div>
+    <div class="bd"><div class="cn">${c.name}</div><div class="en">${c.en}</div><div class="mt">${c.base} · ${c.abv}</div></div></div>`).join('')+`</div>`;}
+renderMix();
+
+function openDetail(id){const c=C.find(x=>x.id===id);
+  document.getElementById('p-detail').innerHTML=`
+    <div class="head" style="${imgBg(c.color)}"><button class="back" onclick="go('list')">‹</button>${c.emoji}</div>
+    <div class="wrap"><h2>${c.name}</h2><div class="en">${c.en}</div>
+      <div class="metar"><span class="tag c">${c.base}</span><span class="tag">难度 ${c.level}</span><span class="tag">酒精 ${c.abv}</span></div>
+      <p class="story">${c.intro}</p>
+      <div class="block"><h4>🍹 配料</h4>${c.ingredients.map(i=>`<div class="ing"><span>${i.name}</span><span class="amt">${i.amt}</span></div>`).join('')}</div>
+      <div class="block"><h4>📝 步骤</h4>${c.steps.map((s,i)=>`<div class="step"><div class="no">${i+1}</div><div>${s}</div></div>`).join('')}</div>
+      <a class="video" href="${c.video}" target="_blank"><div class="pl">▶</div><div><b>观看调制视频</b><br><span style="color:var(--sub);font-size:12px">点击跳转视频教程</span></div></a>
+      <div class="block"><h4>📜 背后的故事</h4><p class="story">${c.story}</p></div></div>`;
+  go('detail');}
+
+document.getElementById('story-list').innerHTML=S.map(s=>`
+  <div class="scard" onclick="alert('演示：打开文章《${s.title}》')"><div class="cov">${s.cover}</div>
+  <div><span class="stag">${s.tag}</span><h4>${s.title}</h4><p>${s.excerpt}</p></div></div>`).join('');
+document.getElementById('spirit-dex').innerHTML=SP.map(s=>`
+  <div class="sp"><div class="e">${s.emoji}</div><div class="n">${s.name}</div><div class="en" style="margin-top:2px">${s.note}</div></div>`).join('');
+
+function doSearch(v){v=v.trim();if(!v){renderList();go('list');return;}
+  const r=C.filter(c=>(c.name+c.en+c.base+c.intro).toLowerCase().includes(v.toLowerCase()));go('list');
+  document.getElementById('list-grid').innerHTML=r.length?r.map(c=>`
+    <div class="gcard" onclick="openDetail('${c.id}')"><div class="im" style="${imgBg(c.color)}">${c.emoji}</div>
+    <div class="bd"><div class="cn">${c.name}</div><div class="en">${c.en}</div><div class="mt">${c.base} · ${c.abv}</div></div></div>`).join('')
+    :'<div class="empty">没找到「'+v+'」相关配方 🥲</div>';}
+</script>
+</body>
+</html>

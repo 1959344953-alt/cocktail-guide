@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #141018;
+  --color-bg2: #1c1720;
+  --color-panel: #241d29;
+  --color-line: #3a2f42;
+  --color-ink: #f3ece2;
+  --color-muted: #a99e94;
+  --color-gold: #c9a24b;
+  --color-gold2: #e6c777;
+  --color-wine: #8a2b2f;
+  --font-serif: "Noto Serif SC", "Songti SC", serif;
+  --font-sans: "Noto Sans SC", system-ui, sans-serif;
+}
+
+:root {
+  --bg: #141018;
+  --bg2: #1c1720;
+  --panel: #241d29;
+  --line: #3a2f42;
+  --ink: #f3ece2;
+  --muted: #a99e94;
+  --gold: #c9a24b;
+  --gold2: #e6c777;
+  --wine: #8a2b2f;
+  --r: 16px;
+  --sh: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  min-height: 100vh;
+  background-image: radial-gradient(120% 80% at 80% -10%, #2a2030 0%, #141018 60%);
+  background-attachment: fixed;
+}
+
+/* 星点底纹 */
+body::before {
+  content: "";
+  position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.5;
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(230,199,119,.10) 0 1px, transparent 2px),
+    radial-gradient(circle at 70% 60%, rgba(230,199,119,.08) 0 1px, transparent 2px),
+    radial-gradient(circle at 40% 80%, rgba(255,255,255,.06) 0 1px, transparent 2px),
+    radial-gradient(circle at 85% 15%, rgba(255,255,255,.05) 0 1px, transparent 2px);
+  background-size: 180px 180px, 240px 240px, 200px 200px, 160px 160px;
+}
+
+.serif { font-family: var(--font-serif); }
+
+/* 照片图标（圆形金边） */
+.ph {
+  display: inline-block; border-radius: 50%;
+  background-size: cover; background-position: center;
+  border: 1.5px solid var(--gold);
+  box-shadow: 0 0 0 2px #241d29, 0 4px 12px rgba(0,0,0,.45);
+  position: relative;
+  background-color: var(--panel);
+}
+.ph-sm { width: 22px; height: 22px; border-width: 1px; }
+.ph-md { width: 30px; height: 30px; }
+.ph-lg { width: 44px; height: 44px; }
+
+/* 配方照片头 */
+.ph-bg {
+  background-size: cover; background-position: center; position: relative;
+}
+.ph-bg::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(16,10,18,.05) 30%, rgba(16,10,18,.78) 100%);
+}
+.ph-bg > * { position: relative; z-index: 1; }
+
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.page-anim { animation: fade .3s ease; }
+
+/* 滚动条隐藏（横滑区） */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+/* 卡片 */
+.rcard, .gcard {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--r); overflow: hidden; cursor: pointer;
+  transition: .2s; box-shadow: var(--sh);
+}
+.rcard:hover, .gcard:hover { border-color: var(--gold); transform: translateY(-3px); }
+
+.tag {
+  font-size: 11px; color: var(--muted);
+  border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px;
+  white-space: nowrap;
+}
+.tag.g { color: var(--gold2); border-color: var(--gold); }
+
+/* 金色渐变按钮 */
+.cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(145deg, var(--gold2), var(--gold));
+  color: #1c1720; font-weight: 700; border: 0; border-radius: 999px;
+  padding: 11px 20px; font-size: 14px; cursor: pointer;
+}
+.cta.ghost { background: none; border: 1px solid var(--gold); color: var(--gold2); }

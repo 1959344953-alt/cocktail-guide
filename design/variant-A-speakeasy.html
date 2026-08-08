@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>调酒指南 · 变体A 暗夜酒馆</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#141018; --bg2:#1c1720; --panel:#241d29; --line:#3a2f42;
+  --ink:#f3ece2; --muted:#a99e94; --gold:#c9a24b; --gold2:#e6c777;
+  --wine:#8a2b2f; --grad: radial-gradient(120% 80% at 80% -10%, #2a2030 0%, #141018 60%);
+  --r:16px; --sh:0 10px 30px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:"Noto Sans SC",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;
+  background-image:var(--grad);min-height:100vh;
+  /* 星点底纹 */
+  background-attachment:fixed;}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background-image:radial-gradient(circle at 10% 20%, rgba(230,199,119,.10) 0 1px, transparent 2px),
+    radial-gradient(circle at 70% 60%, rgba(230,199,119,.08) 0 1px, transparent 2px),
+    radial-gradient(circle at 40% 80%, rgba(255,255,255,.06) 0 1px, transparent 2px),
+    radial-gradient(circle at 85% 15%, rgba(255,255,255,.05) 0 1px, transparent 2px);
+  background-size:180px 180px,240px 240px,200px 200px,160px 160px;}
+.app{max-width:440px;margin:0 auto;position:relative;z-index:1;padding-bottom:88px;min-height:100vh}
+serif,.serif{font-family:"Noto Serif SC",serif}
+/* 顶栏 */
+.top{position:sticky;top:0;z-index:20;backdrop-filter:blur(12px);background:rgba(20,16,24,.75);
+  border-bottom:1px solid var(--line);padding:14px 18px 12px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand .mark{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;
+  background:linear-gradient(145deg,var(--gold2),var(--gold));color:#241d29;font-size:20px;box-shadow:var(--sh)}
+.brand h1{font-family:"Noto Serif SC",serif;font-size:19px;letter-spacing:2px;font-weight:700}
+.brand small{color:var(--gold2);letter-spacing:3px;font-size:10px;display:block;margin-top:-2px}
+/* 搜索 */
+.search{margin-top:12px;display:flex;align-items:center;gap:8px;background:var(--panel);
+  border:1px solid var(--line);border-radius:999px;padding:10px 16px}
+.search input{flex:1;background:none;border:0;color:var(--ink);font-size:15px;outline:none}
+.search input::placeholder{color:var(--muted)}
+.search .ic{color:var(--gold2)}
+/* 页面切换 */
+.page{display:none;padding:18px}
+.page.on{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* 分区标题 */
+.sec{display:flex;align-items:baseline;justify-content:space-between;margin:26px 0 14px}
+.sec h2{font-family:"Noto Serif SC",serif;font-size:20px;letter-spacing:1px}
+.sec .line{flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin:0 12px 4px}
+.sec a{color:var(--gold2);font-size:13px;text-decoration:none}
+/* Hero */
+.hero{position:relative;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);
+  background:linear-gradient(160deg,#2b2030,#191320);padding:22px;box-shadow:var(--sh)}
+.hero .ey{color:var(--gold2);letter-spacing:4px;font-size:11px}
+.hero h3{font-family:"Noto Serif SC",serif;font-size:26px;margin:8px 0 6px;line-height:1.3}
+.hero p{color:var(--muted);font-size:14px}
+.hero .glass{position:absolute;right:-4px;bottom:-8px;width:150px;height:150px;border-radius:50%;
+  background-size:cover;background-position:center;border:2px solid var(--gold);
+  box-shadow:0 0 0 3px rgba(20,16,24,.6), 0 10px 30px rgba(0,0,0,.5);opacity:.9;
+  background-image:url('https://images.unsplash.com/photo-1529504426707-d1d7a0dc458a?w=320&q=80&auto=format&fit=crop')}
+.cta{margin-top:16px;display:inline-flex;align-items:center;gap:8px;background:linear-gradient(145deg,var(--gold2),var(--gold));
+  color:#1c1720;font-weight:700;border:0;border-radius:999px;padding:11px 20px;font-size:14px;cursor:pointer}
+.cta.ghost{background:none;border:1px solid var(--gold);color:var(--gold2);margin-left:8px}
+/* 快捷入口 */
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
+.qi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 6px;text-align:center;cursor:pointer;transition:.2s}
+.qi:hover{border-color:var(--gold);transform:translateY(-2px)}
+.qi .e{font-size:24px}
+.qi span{display:block;font-size:12px;color:var(--muted);margin-top:6px}
+/* 配方卡横滑 */
+.rail{display:flex;gap:14px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}
+.rail::-webkit-scrollbar{height:0}
+.rcard{scroll-snap-align:start;min-width:220px;background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--r);overflow:hidden;cursor:pointer;transition:.2s;box-shadow:var(--sh)}
+.rcard:hover{border-color:var(--gold);transform:translateY(-3px)}
+.rcard .top-img{height:120px;display:grid;place-items:center;font-size:56px;position:relative;
+  background-size:cover;background-position:center}
+.rcard .top-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,10,18,.05) 30%,rgba(16,10,18,.78) 100%)}
+.rcard .top-img .ph-e{position:relative;z-index:1;font-size:34px;filter:drop-shadow(0 3px 8px rgba(0,0,0,.6))}
+.rcard .body{padding:12px 14px 14px}
+.rcard .cn{font-family:"Noto Serif SC",serif;font-size:17px}
+.rcard .en{color:var(--gold2);font-size:11px;letter-spacing:1px}
+.rcard .meta{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.tag{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 9px}
+.tag.g{color:var(--gold2);border-color:var(--gold)}
+/* 列表页 */
+.filters{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:6px}
+.filters::-webkit-scrollbar{height:0}
+.chip{white-space:nowrap;border:1px solid var(--line);color:var(--muted);background:var(--panel);
+  border-radius:999px;padding:8px 16px;font-size:13px;cursor:pointer;transition:.2s}
+.chip.on{background:linear-gradient(145deg,var(--gold2),var(--gold));color:#1c1720;border-color:transparent;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.gcard{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:.2s}
+.gcard:hover{border-color:var(--gold);transform:translateY(-2px)}
+.gcard .im{height:96px;display:grid;place-items:center;font-size:44px;position:relative;
+  background-size:cover;background-position:center}
+.gcard .im::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,10,18,.03) 40%,rgba(16,10,18,.72) 100%)}
+.gcard .im .ph-e{position:relative;z-index:1;font-size:30px;filter:drop-shadow(0 3px 8px rgba(0,0,0,.6))}
+.gcard .bd{padding:10px 12px 12px}
+.gcard .cn{font-family:"Noto Serif SC",serif;font-size:15px}
+.gcard .en{color:var(--gold2);font-size:10px;letter-spacing:1px}
+.gcard .mt{margin-top:6px;font-size:11px;color:var(--muted)}
+/* 我有什么酒 */
+.mixer .hint{color:var(--muted);font-size:13px;margin-bottom:14px}
+.grp-t{font-size:13px;color:var(--gold2);letter-spacing:1px;margin-bottom:10px;font-weight:700}
+.spirits{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.sp{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 8px;text-align:center;cursor:pointer;transition:.2s;position:relative}
+.sp .e{font-size:30px}
+.sp .n{font-size:13px;margin-top:6px}
+.sp .en{font-size:10px;color:var(--muted)}
+.sp.on{border-color:var(--gold);background:linear-gradient(160deg,#2b2030,#241d29);box-shadow:0 0 0 1px var(--gold) inset}
+.sp.on::after{content:"✓";position:absolute;top:6px;right:8px;color:var(--gold2);font-weight:700}
+.result{margin-top:22px}
+.result .cnt{color:var(--gold2);font-size:13px;margin-bottom:10px}
+/* 详情页 */
+.det{padding:0}
+.det .head{height:200px;display:grid;place-items:center;font-size:104px;position:relative;border-bottom:1px solid var(--line);
+  background-size:cover;background-position:center}
+.det .head::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,10,18,.15) 20%,rgba(16,10,18,.9) 100%)}
+.det .head .ph-e{position:relative;z-index:1;font-size:56px;filter:drop-shadow(0 4px 12px rgba(0,0,0,.7))}
+.det .back{position:absolute;top:14px;left:14px;background:rgba(0,0,0,.4);border:1px solid var(--line);
+  color:var(--ink);border-radius:999px;width:38px;height:38px;cursor:pointer;font-size:18px}
+.det .wrap{padding:18px}
+.det h2{font-family:"Noto Serif SC",serif;font-size:26px}
+.det .en{color:var(--gold2);letter-spacing:2px;font-size:12px;margin-bottom:10px}
+.det .metar{display:flex;gap:8px;margin:12px 0}
+.block{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-top:16px}
+.block h4{font-family:"Noto Serif SC",serif;font-size:16px;color:var(--gold2);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.ing{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dashed var(--line)}
+.ing:last-child{border:0}
+.ing .amt{color:var(--gold2)}
+.step{display:flex;gap:12px;padding:8px 0}
+.step .no{width:24px;height:24px;flex:none;border-radius:50%;background:linear-gradient(145deg,var(--gold2),var(--gold));
+  color:#1c1720;font-weight:700;display:grid;place-items:center;font-size:13px}
+.video{display:flex;align-items:center;gap:12px;background:linear-gradient(160deg,#2b2030,#191320);
+  border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;margin-top:16px;text-decoration:none;color:var(--ink)}
+.video .pl{width:44px;height:44px;border-radius:50%;background:var(--wine);display:grid;place-items:center;font-size:18px}
+.story{color:var(--muted);font-size:14px;line-height:1.8}
+/* 发布页 */
+.form label{display:block;font-size:13px;color:var(--muted);margin:14px 0 6px}
+.form input,.form textarea{width:100%;background:var(--panel);border:1px solid var(--line);color:var(--ink);
+  border-radius:12px;padding:12px 14px;font-size:15px;outline:none;font-family:inherit}
+.form input:focus,.form textarea:focus{border-color:var(--gold)}
+.form textarea{min-height:90px;resize:vertical}
+.addrow{display:flex;gap:8px}
+.addrow input{flex:1}
+.mini{background:var(--panel);border:1px dashed var(--line);color:var(--gold2);border-radius:10px;padding:0 14px;cursor:pointer}
+.submit{width:100%;margin-top:20px;background:linear-gradient(145deg,var(--gold2),var(--gold));color:#1c1720;
+  font-weight:700;border:0;border-radius:999px;padding:14px;font-size:15px;cursor:pointer}
+/* 故事页 */
+.scard{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:14px;cursor:pointer;transition:.2s;display:flex;gap:14px}
+.scard:hover{border-color:var(--gold)}
+.scard .cov{font-size:40px;flex:none}
+.scard .stag{font-size:11px;color:var(--gold2);border:1px solid var(--gold);border-radius:999px;padding:1px 9px;display:inline-block;margin-bottom:6px}
+.scard h4{font-family:"Noto Serif SC",serif;font-size:16px;margin-bottom:4px}
+.scard p{color:var(--muted);font-size:13px}
+/* 底部 tab */
+.tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:440px;z-index:30;
+  background:rgba(20,16,24,.92);backdrop-filter:blur(14px);border-top:1px solid var(--line);
+  display:grid;grid-template-columns:repeat(5,1fr);padding:8px 6px calc(8px + env(safe-area-inset-bottom))}
+.tb{background:none;border:0;color:var(--muted);font-size:11px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px}
+.tb .e{font-size:20px}
+.tb.on{color:var(--gold2)}
+.tb.mid .e{background:linear-gradient(145deg,var(--gold2),var(--gold));color:#1c1720;width:44px;height:44px;border-radius:50%;
+  display:grid;place-items:center;margin-top:-18px;box-shadow:var(--sh);font-size:22px}
+.empty{text-align:center;color:var(--muted);padding:40px 0;font-size:14px}
+/* ===== 实物照片图标（圆形金边，高端酒吧质感）===== */
+.ico{width:1em;height:1em;vertical-align:-.15em;display:inline-block;overflow:visible}
+.ph{display:inline-block;border-radius:50%;background-size:cover;background-position:center;
+  border:1.5px solid var(--gold);box-shadow:0 0 0 2px #241d29, 0 4px 12px rgba(0,0,0,.45);position:relative}
+.qi .ph{width:44px;height:44px;margin:0 auto 6px}
+.tb .ph{width:22px;height:22px;border-width:1px}
+.tb.mid .ph{width:34px;height:34px;border-width:1.5px;margin-top:-14px}
+.brand .mark .ph{width:30px;height:30px;border-width:1.2px}
+/* 点触微反馈（克制、无花哨动画） */
+.qi:active{transform:scale(.94)}
+.tb:active{opacity:.6}
+.brand .mark{animation:none}
+/* 点触水波纹（金色涟漪） */
+.tagrow{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 6px}
+.copybtn{background:linear-gradient(145deg,var(--gold2),var(--gold));color:#1c1720;border:0;border-radius:14px;
+  padding:0 16px;font-weight:700;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px}
+/* 悬浮搜索小酒杯（照片图标） */
+.fab{position:fixed;right:max(16px,calc(50% - 220px + 16px));bottom:96px;z-index:40;width:56px;height:56px;border-radius:50%;
+  padding:0;background-size:cover;background-position:center;cursor:pointer;border:2px solid var(--gold);
+  box-shadow:0 0 0 2px #241d29, 0 8px 24px rgba(0,0,0,.5);transition:.2s}
+.fab:active{transform:scale(.92)}
+.fab-pop{position:fixed;right:max(16px,calc(50% - 220px + 16px));bottom:164px;z-index:41;width:240px;
+  background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--sh);display:none}
+.fab-pop.on{display:block;animation:fade .2s ease}
+.fab-pop input{width:100%;background:var(--bg2);border:1px solid var(--line);color:var(--ink);border-radius:10px;
+  padding:10px 12px;font-size:14px;outline:none}
+.fab-pop .frow{display:flex;gap:8px;margin-top:10px}
+.fab-pop .fchip{flex:1;text-align:center;background:var(--bg2);border:1px solid var(--line);color:var(--gold2);
+  border-radius:999px;padding:8px 0;font-size:12px;cursor:pointer}
+</style>
+</head>
+<body>
+<!-- ===== 仿真金属调酒工具图标 sprite（渐变/高光/阴影，非线描）===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <defs>
+  <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#fdf3d6"/><stop offset=".28" stop-color="#e7c76f"/>
+    <stop offset=".55" stop-color="#b8892f"/><stop offset=".78" stop-color="#e9cd82"/>
+    <stop offset="1" stop-color="#8a5f1c"/>
+  </linearGradient>
+  <linearGradient id="steel2" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fff6dd"/><stop offset=".5" stop-color="#d8ad4e"/>
+    <stop offset="1" stop-color="#9a6d22"/>
+  </linearGradient>
+  <linearGradient id="liq" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#f2a65a"/><stop offset="1" stop-color="#b5321e"/>
+  </linearGradient>
+  <radialGradient id="shine" cx=".35" cy=".28" r=".7">
+    <stop offset="0" stop-color="#fffdf5" stop-opacity=".95"/><stop offset="1" stop-color="#fffdf5" stop-opacity="0"/>
+  </radialGradient>
+
+  <!-- 雪克杯（波士顿摇壶）：杯身渐变金属 + 高光 + 液体 -->
+  <symbol id="i-shaker" viewBox="0 0 48 48">
+    <ellipse cx="24" cy="44" rx="12" ry="2.4" fill="#000" opacity=".28"/>
+    <path d="M17 4h14l-1.4 5H18.4L17 4Z" fill="url(#steel2)" stroke="#7a5216" stroke-width=".8"/>
+    <path d="M15.5 9h17l-1 4.5a6 6 0 0 1-1.8 3.1l-1.2 1.1V38a4 4 0 0 1-4 4h-1a4 4 0 0 1-4-4V17.7l-1.2-1.1a6 6 0 0 1-1.8-3.1L15.5 9Z" fill="url(#steel)" stroke="#6e4a13" stroke-width="1"/>
+    <path d="M18 21h12v3H18z" fill="#4a3410" opacity=".35"/>
+    <path d="M18 24h12v13a3 3 0 0 1-3 3h-6a3 3 0 0 1-3-3V24Z" fill="url(#liq)" opacity=".9"/>
+    <path d="M19 10.5c1 3 1 20 0 27" stroke="#fff8e6" stroke-width="1.6" opacity=".55" fill="none" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- 量酒器 jigger：双锥不锈钢 -->
+  <symbol id="i-jigger" viewBox="0 0 48 48">
+    <ellipse cx="24" cy="44" rx="11" ry="2.2" fill="#000" opacity=".28"/>
+    <path d="M12 6h24l-9 15.5a3 3 0 0 1-2.6 1.5h0a3 3 0 0 1-2.6-1.5L12 6Z" fill="url(#steel)" stroke="#6e4a13" stroke-width="1"/>
+    <path d="M36 42H12l9-15.5a3 3 0 0 1 2.6-1.5h0a3 3 0 0 1 2.6 1.5L36 42Z" fill="url(#steel2)" stroke="#6e4a13" stroke-width="1"/>
+    <path d="M15 8h18" stroke="#fff8e6" stroke-width="1.4" opacity=".6"/>
+    <path d="M18 12l6 8 6-8" fill="url(#liq)" opacity=".85"/>
+  </symbol>
+
+  <!-- 吧勺 bar spoon：螺旋柄 + 勺头 -->
+  <symbol id="i-spoon" viewBox="0 0 48 48">
+    <ellipse cx="24" cy="44" rx="7" ry="2" fill="#000" opacity=".25"/>
+    <path d="M24 5v27" stroke="url(#steel)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M24 7c3 2 3 4 0 6s-3 4 0 6 3 4 0 6" stroke="#fff8e6" stroke-width="1.4" fill="none" opacity=".7"/>
+    <ellipse cx="24" cy="38" rx="6.5" ry="4.6" fill="url(#steel2)" stroke="#6e4a13" stroke-width="1"/>
+    <ellipse cx="22" cy="36.5" rx="2.4" ry="1.6" fill="#fffdf5" opacity=".75"/>
+  </symbol>
+
+  <!-- 滤冰器 hawthorne strainer -->
+  <symbol id="i-strainer" viewBox="0 0 48 48">
+    <ellipse cx="24" cy="44" rx="11" ry="2.2" fill="#000" opacity=".25"/>
+    <circle cx="24" cy="20" r="14" fill="url(#steel2)" stroke="#6e4a13" stroke-width="1.2"/>
+    <circle cx="24" cy="20" r="10" fill="#241d29" opacity=".25"/>
+    <path d="M24 6v28M14 12v16M34 12v16M11 20h26" stroke="#7a5216" stroke-width="1.3" opacity=".8"/>
+    <path d="M24 34c0 4 3 8 6 8" stroke="url(#steel)" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <ellipse cx="19" cy="15" rx="3" ry="2" fill="#fffdf5" opacity=".6"/>
+  </symbol>
+
+  <!-- 捣棒 muddler -->
+  <symbol id="i-muddler" viewBox="0 0 48 48">
+    <ellipse cx="30" cy="44" rx="8" ry="2" fill="#000" opacity=".25"/>
+    <rect x="26" y="4" width="5" height="26" rx="2.5" transform="rotate(20 28 17)" fill="url(#steel)" stroke="#6e4a13" stroke-width=".8"/>
+    <rect x="24" y="26" width="12" height="14" rx="5" transform="rotate(20 30 33)" fill="url(#steel2)" stroke="#6e4a13" stroke-width="1"/>
+    <path d="M28 8c1 8-2 16-4 22" stroke="#fff8e6" stroke-width="1.2" opacity=".6" fill="none"/>
+  </symbol>
+
+  <!-- 酒瓶 bottle -->
+  <symbol id="i-bottle" viewBox="0 0 48 48">
+    <ellipse cx="24" cy="44" rx="9" ry="2.2" fill="#000" opacity=".28"/>
+    <path d="M21 4h6v5l3 4.4a7 7 0 0 1 1 3.6V39a3 3 0 0 1-3 3h-8a3 3 0 0 1-3-3V17a7 7 0 0 1 1-3.6L21 9V4Z" fill="url(#steel)" stroke="#6e4a13" stroke-width="1"/>
+    <path d="M18 24h12v13a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2V24Z" fill="url(#liq)"/>
+    <rect x="19" y="26" width="10" height="8" rx="1.5" fill="#fdf3d6" opacity=".85"/>
+    <path d="M22 6v33" stroke="#fff8e6" stroke-width="1.3" opacity=".55"/>
+  </symbol>
+
+  <!-- 配方书 -->
+  <symbol id="i-book" viewBox="0 0 48 48">
+    <ellipse cx="24" cy="44" rx="16" ry="2.2" fill="#000" opacity=".22"/>
+    <path d="M8 8a3 3 0 0 1 3-3h13v34H11a3 3 0 0 1-3-3V8Z" fill="url(#steel2)" stroke="#6e4a13" stroke-width="1"/>
+    <path d="M40 8a3 3 0 0 0-3-3H24v34h13a3 3 0 0 0 3-3V8Z" fill="url(#steel)" stroke="#6e4a13" stroke-width="1"/>
+    <path d="M13 13h7M13 19h7M28 13h7M28 19h7" stroke="#7a5216" stroke-width="1.2" opacity=".8"/>
+    <circle cx="24" cy="30" r="4" fill="url(#liq)"/>
+  </symbol>
+
+  <!-- 便利店 -->
+  <symbol id="i-store" viewBox="0 0 48 48">
+    <ellipse cx="24" cy="44" rx="17" ry="2.2" fill="#000" opacity=".22"/>
+    <path d="M9 16 11 7h26l2 9" fill="url(#steel)" stroke="#6e4a13" stroke-width="1"/>
+    <path d="M9 16h30v22a2 2 0 0 1-2 2H11a2 2 0 0 1-2-2V16Z" fill="url(#steel2)" stroke="#6e4a13" stroke-width="1"/>
+    <path d="M9 16a4 4 0 0 0 7.5 0 4 4 0 0 0 7.5 0 4 4 0 0 0 7.5 0 4 4 0 0 0 7.5 0" fill="none" stroke="#7a5216" stroke-width="1.3"/>
+    <rect x="19" y="28" width="10" height="12" rx="1" fill="url(#liq)" opacity=".8"/>
+    <path d="M13 9v6M35 9v6" stroke="#fff8e6" stroke-width="1" opacity=".5"/>
+  </symbol>
+
+  <!-- 卷轴/故事 -->
+  <symbol id="i-scroll" viewBox="0 0 48 48">
+    <ellipse cx="24" cy="44" rx="14" ry="2" fill="#000" opacity=".22"/>
+    <path d="M12 6h22a4 4 0 0 1 4 4v26a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V10" fill="url(#steel2)" stroke="#6e4a13" stroke-width="1"/>
+    <path d="M8 10a4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4 4 4 0 0 0-4 4Z" fill="url(#steel)" stroke="#6e4a13" stroke-width="1"/>
+    <path d="M18 16h14M18 22h14M18 28h9" stroke="#7a5216" stroke-width="1.3" opacity=".8"/>
+  </symbol>
+
+  <!-- 羽毛笔/发布 -->
+  <symbol id="i-pen" viewBox="0 0 48 48">
+    <ellipse cx="24" cy="44" rx="10" ry="2" fill="#000" opacity=".22"/>
+    <path d="M30 6 42 18 18 42H6V30L30 6Z" fill="url(#steel)" stroke="#6e4a13" stroke-width="1"/>
+    <path d="M26 10l12 12" stroke="#fff8e6" stroke-width="1.6" opacity=".6"/>
+    <path d="M6 30h12v12" fill="url(#liq)" opacity=".8"/>
+  </symbol>
+
+  <!-- 首页/鸡尾酒杯 -->
+  <symbol id="i-home" viewBox="0 0 48 48">
+    <ellipse cx="24" cy="44" rx="11" ry="2.2" fill="#000" opacity=".25"/>
+    <path d="M8 8h32L24 26 8 8Z" fill="url(#steel2)" stroke="#6e4a13" stroke-width="1.2"/>
+    <path d="M12 11h24l-12 13-12-13Z" fill="url(#liq)"/>
+    <path d="M24 26v14M16 40h16" stroke="url(#steel)" stroke-width="2.6" stroke-linecap="round"/>
+    <circle cx="30" cy="15" r="2.5" fill="#c6185c"/>
+  </symbol>
+
+  <!-- 搜索 -->
+  <symbol id="i-search" viewBox="0 0 48 48">
+    <circle cx="21" cy="21" r="13" fill="none" stroke="url(#steel)" stroke-width="4"/>
+    <circle cx="21" cy="21" r="9" fill="#241d29" opacity=".2"/>
+    <path d="m31 31 9 9" stroke="url(#steel)" stroke-width="5" stroke-linecap="round"/>
+    <ellipse cx="16" cy="16" rx="3.5" ry="2.4" fill="#fffdf5" opacity=".6"/>
+  </symbol>
+
+  <!-- 玻璃杯（详情标题装饰） -->
+  <symbol id="i-glass" viewBox="0 0 48 48">
+    <ellipse cx="24" cy="44" rx="10" ry="2" fill="#000" opacity=".22"/>
+    <path d="M9 8h30L26 24v14M22 24 9 8" fill="none" stroke="url(#steel)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M13 11h22L26 22h-4L13 11Z" fill="url(#liq)"/>
+    <path d="M16 40h16" stroke="url(#steel)" stroke-width="2.6" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- 播放 -->
+  <symbol id="i-play" viewBox="0 0 48 48">
+    <circle cx="24" cy="24" r="20" fill="url(#steel)" stroke="#6e4a13" stroke-width="1.2"/>
+    <path d="M19 15l14 9-14 9V15Z" fill="#241d29"/>
+    <ellipse cx="17" cy="14" rx="5" ry="3" fill="#fffdf5" opacity=".5"/>
+  </symbol>
+
+  <!-- 返回 -->
+  <symbol id="i-back" viewBox="0 0 48 48">
+    <path d="M30 8 14 24l16 16" fill="none" stroke="url(#steel)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+ </defs>
+</svg>
+<div class="app">
+  <!-- 顶栏 -->
+  <div class="top">
+    <div class="brand">
+      <div class="mark"><span class="ph" style="background-image:url('https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=120&q=80&auto=format&fit=crop')"></span></div>
+      <div>
+        <h1>调酒指南</h1>
+        <small>THE MIXOLOGY ALMANAC</small>
+      </div>
+    </div>
+    <div class="search">
+      <span class="ic"><svg class="ico"><use href="#i-search"/></svg></span>
+      <input id="q" placeholder="搜配方 / 基酒 / 故事…" oninput="doSearch(this.value)">
+    </div>
+  </div>
+
+  <!-- 首页 -->
+  <div class="page on" id="p-home">
+    <div class="hero">
+      <div class="ey">OUR SOUL NEEDS IT</div>
+      <h3>我们的身体不需要酒精<br>但灵魂需要！</h3>
+      <p>今夜先从一杯尼格罗尼开始。</p>
+      <button class="cta" onclick="openDetail('negroni')">查看配方 →</button>
+      <button class="cta ghost" onclick="swapHero()">🎲 换一杯</button>
+      <div class="glass"></div>
+    </div>
+
+    <div class="quick">
+      <div class="qi" onclick="ripple(event);go('mixer')"><span class="ph" style="background-image:url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=160&q=80&auto=format&fit=crop')"></span><span>我的酒柜</span></div>
+      <div class="qi" onclick="ripple(event);go('taste')"><span class="ph" style="background-image:url('https://images.unsplash.com/photo-1560512823-829485b8bf24?w=160&q=80&auto=format&fit=crop')"></span><span>按味道找</span></div>
+      <div class="qi" onclick="ripple(event);go('conv')"><span class="ph" style="background-image:url('https://images.unsplash.com/photo-1572116469696-31de0f17cc34?w=160&q=80&auto=format&fit=crop')"></span><span>便利店调酒</span></div>
+      <div class="qi" onclick="ripple(event);go('story')"><span class="ph" style="background-image:url('https://images.unsplash.com/photo-1514516345957-556ca7d90a29?w=160&q=80&auto=format&fit=crop')"></span><span>故事文化</span></div>
+    </div>
+
+    <div class="sec"><h2>热门配方</h2><div class="line"></div><a onclick="go('list')">全部 ›</a></div>
+    <div class="rail" id="home-rail"></div>
+
+    <div class="sec"><h2>故事与文化</h2><div class="line"></div><a onclick="go('story')">更多 ›</a></div>
+    <div id="home-story"></div>
+  </div>
+
+  <!-- 配方库 -->
+  <div class="page" id="p-list">
+    <div class="sec" style="margin-top:6px"><h2>配方库</h2><div class="line"></div><a onclick="go('publish')"><svg class="ico" style="width:14px;height:14px;vertical-align:-2px"><use href="#i-pen"/></svg> 发布</a></div>
+    <div class="filters" id="filters"></div>
+    <div class="grid" id="list-grid"></div>
+  </div>
+
+  <!-- 我有什么酒（酒柜三档匹配） -->
+  <div class="page" id="p-mixer">
+    <div class="sec" style="margin-top:6px"><h2>我的酒柜</h2><div class="line"></div></div>
+    <p class="hint">勾选你现有的酒、辅料和工具，实时算出能调出什么 👇</p>
+    <div class="grp-t"><svg class="ico" style="width:16px;height:16px;vertical-align:-3px"><use href="#i-bottle"/></svg> 基酒</div>
+    <div class="spirits" id="spirits"></div>
+    <div class="grp-t" style="margin-top:16px"><svg class="ico" style="width:16px;height:16px;vertical-align:-3px"><use href="#i-glass"/></svg> 辅料</div>
+    <div class="spirits" id="extras"></div>
+    <div class="grp-t" style="margin-top:16px"><svg class="ico" style="width:16px;height:16px;vertical-align:-3px"><use href="#i-spoon"/></svg> 工具</div>
+    <div class="spirits" id="toolset"></div>
+    <div class="result" id="mix-result"></div>
+  </div>
+
+  <!-- 按味道找 -->
+  <div class="page" id="p-taste">
+    <div class="sec" style="margin-top:6px"><h2>按味道找酒</h2><div class="line"></div></div>
+    <p class="hint">多选你今晚想要的味道，结果实时排序 👇</p>
+    <div class="filters" id="taste-chips"></div>
+    <div class="result" id="taste-result"></div>
+  </div>
+
+  <!-- 详情 -->
+  <div class="page det" id="p-detail"></div>
+
+  <!-- 便利店调酒 -->
+  <div class="page" id="p-conv">
+    <div class="sec" style="margin-top:6px"><h2>便利店调酒</h2><div class="line"></div></div>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:16px">走进任何一家便利店，就能调出的微醺。</p>
+    <div class="grid" id="conv-grid"></div>
+  </div>
+
+  <!-- 发布 -->
+  <div class="page" id="p-publish">
+    <div class="sec" style="margin-top:6px"><h2>发布配方</h2><div class="line"></div></div>
+    <div class="form">
+      <label>配方名称</label><input placeholder="例如：夜航船特调">
+      <label>基酒</label><input placeholder="例如：金酒">
+      <label>一句话简介</label><input placeholder="它喝起来是什么感觉？">
+      <label>配料</label>
+      <div class="addrow"><input placeholder="配料，如 金酒 30ml"><button class="mini" onclick="alert('演示：新增一行配料')">＋</button></div>
+      <label>制作步骤</label><textarea placeholder="一步一行，讲清楚顺序与手法…"></textarea>
+      <label>视频链接（选填）</label><input placeholder="B站 / 抖音 链接">
+      <label>背后的故事（选填）</label><textarea placeholder="这杯酒有什么来历或你的心情？"></textarea>
+      <button class="submit" onclick="alert('演示原型：这里会提交到你自己的配方库')">发布配方</button>
+    </div>
+  </div>
+
+  <!-- 故事 -->
+  <div class="page" id="p-story">
+    <div class="sec" style="margin-top:6px"><h2>故事 · 知识 · 文化</h2><div class="line"></div></div>
+    <div id="story-list"></div>
+    <div class="sec"><h2>基酒图鉴</h2><div class="line"></div></div>
+    <div class="spirits" id="spirit-dex"></div>
+  </div>
+
+  <!-- tabbar -->
+  <div class="tabbar">
+    <button class="tb on" data-p="home" onclick="go('home')"><span class="ph" style="background-image:url('https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=80&q=80&auto=format&fit=crop')"></span>首页</button>
+    <button class="tb" data-p="list" onclick="go('list')"><span class="ph" style="background-image:url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=80&q=80&auto=format&fit=crop')"></span>配方</button>
+    <button class="tb mid" data-p="mixer" onclick="go('mixer')"><span class="ph" style="background-image:url('https://images.unsplash.com/photo-1527281400683-1aae777175f8?w=140&q=80&auto=format&fit=crop')"></span></button>
+    <button class="tb" data-p="conv" onclick="go('conv')"><span class="ph" style="background-image:url('https://images.unsplash.com/photo-1572116469696-31de0f17cc34?w=80&q=80&auto=format&fit=crop')"></span>便利店</button>
+    <button class="tb" data-p="story" onclick="go('story')"><span class="ph" style="background-image:url('https://images.unsplash.com/photo-1514516345957-556ca7d90a29?w=80&q=80&auto=format&fit=crop')"></span>故事</button>
+  </div>
+  <!-- 悬浮搜索小酒杯 -->
+  <div class="fab-pop" id="fab-pop">
+    <input id="fab-q" placeholder="搜配方…" onkeydown="if(event.key==='Enter')fabSearch(this.value)">
+    <div class="frow"><div class="fchip" onclick="fabSearch('')">🎲 随机一杯</div><div class="fchip" onclick="fabSearch('清爽')">清爽</div><div class="fchip" onclick="fabSearch('咖啡')">咖啡</div></div>
+  </div>
+  <button class="fab" id="fab-btn" onclick="toggleFab()" style="background-image:url('https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=140&q=80&auto=format&fit=crop')"></button>
+</div>
+
+<script src="data.js"></script>
+<script>
+const C = window.COCKTAILS, S = window.STORIES, SP = window.SPIRITS, CV = window.CONVENIENCE || [];
+const ALL = C.concat(CV); // 详情/搜索跨全部配方查找
+let curFilter = "全部", picked = new Set();
+
+function go(p){
+  document.querySelectorAll('.page').forEach(e=>e.classList.remove('on'));
+  document.getElementById('p-'+p).classList.add('on');
+  document.querySelectorAll('.tb').forEach(t=>t.classList.toggle('on', t.dataset.p===p));
+  window.scrollTo(0,0);
+}
+function imgBg(c){return `background:radial-gradient(circle at 50% 30%, ${c}55, transparent 70%), linear-gradient(160deg,#2b2030,#191320)`;}
+// 真实照片背景（带暗调金色氛围保持酒吧质感）
+function phBg(c){return `background-image:linear-gradient(160deg, rgba(201,162,75,.16), rgba(16,10,18,.38)), url("${c.photo}")`;}
+// 点触水波纹（金色涟漪）
+function ripple(e){
+  const t = e.currentTarget; if(!t) return;
+  const r = document.createElement('span'); r.className='rp';
+  const b = t.getBoundingClientRect();
+  r.style.left = (e.clientX - b.left) + 'px';
+  r.style.top  = (e.clientY - b.top) + 'px';
+  t.appendChild(r); setTimeout(()=>r.remove(), 600);
+}
+// 首页 hero 换一杯
+let heroC = ALL[0];
+function swapHero(){
+  let n; do{ n = Math.floor(Math.random()*ALL.length); }while(ALL[n].id===heroC.id);
+  heroC = ALL[n];
+  const hero = document.querySelector('.hero');
+  hero.querySelector('h3').innerHTML = `${heroC.name}`;
+  hero.querySelector('.ey').textContent = heroC.en.toUpperCase() + ' · ' + (heroC.time||'') + ' · ' + (heroC.glass||'');
+  hero.querySelector('p').textContent = heroC.intro;
+  const cta = hero.querySelector('.cta'); cta.onclick = ()=>openDetail(heroC.id);
+  const g = hero.querySelector('.glass'); g.style.backgroundImage = `url("${heroC.photo}")`;
+  hero.style.background = `linear-gradient(160deg, #2b2030, #191320)`;
+}
+
+// 首页横滑
+document.getElementById('home-rail').innerHTML = C.slice(0,6).map(c=>`
+  <div class="rcard" onclick="openDetail('${c.id}')">
+    <div class="top-img" style="${phBg(c)}"><span class="ph-e">${c.emoji}</span></div>
+    <div class="body">
+      <div class="cn">${c.name}</div><div class="en">${c.en}</div>
+      <div class="meta"><span class="tag g">${c.base}</span><span class="tag">${c.level}</span><span class="tag">${c.abv}</span></div>
+    </div>
+  </div>`).join('');
+
+// 首页故事
+document.getElementById('home-story').innerHTML = S.map(s=>`
+  <div class="scard" onclick="alert('演示：打开文章《${s.title}》')">
+    <div class="cov">${s.cover}</div>
+    <div><span class="stag">${s.tag}</span><h4>${s.title}</h4><p>${s.excerpt}</p></div>
+  </div>`).join('');
+
+// 配方库筛选
+const cats = ["全部", ...new Set(C.map(c=>c.base))];
+document.getElementById('filters').innerHTML = cats.map(c=>
+  `<div class="chip ${c==='全部'?'on':''}" onclick="setFilter('${c}')">${c}</div>`).join('');
+function setFilter(c){curFilter=c;
+  document.querySelectorAll('#filters .chip').forEach(x=>x.classList.toggle('on', x.textContent===c));
+  renderList();}
+function renderList(){
+  const data = curFilter==='全部'?C:C.filter(c=>c.base===curFilter);
+  document.getElementById('list-grid').innerHTML = data.map(c=>`
+    <div class="gcard" onclick="openDetail('${c.id}')">
+      <div class="im" style="${phBg(c)}"><span class="ph-e">${c.emoji}</span></div>
+      <div class="bd"><div class="cn">${c.name}</div><div class="en">${c.en}</div>
+      <div class="mt">${c.base} · ${c.abv} · ${c.level}</div></div>
+    </div>`).join('');
+}
+renderList();
+
+// 我的酒柜（基酒+辅料+工具 三组，三档匹配）
+const STOCK = window.BAR_STOCK;
+let stock = new Set(); // 已勾选的库存项
+
+function renderStock(){
+  const sp = (s)=>`<div class="sp" data-item="${s.name}" onclick="toggleStock('${s.name}')">
+    <div class="e">${s.emoji}</div><div class="n">${s.name}</div><div class="en">${s.en}</div></div>`;
+  document.getElementById('spirits').innerHTML = STOCK.spirits.map(sp).join('');
+  document.getElementById('extras').innerHTML  = STOCK.extras.map(sp).join('');
+  document.getElementById('toolset').innerHTML = STOCK.tools.map(sp).join('');
+}
+function toggleStock(n){
+  stock.has(n)?stock.delete(n):stock.add(n);
+  document.querySelectorAll('#p-mixer .sp').forEach(e=>e.classList.toggle('on', stock.has(e.dataset.item)));
+  renderMix();
+}
+// 装饰性材料（缺了不影响做）
+const DECOR = ["橙皮","细盐","冰块","蛋白","薄荷","柠檬片"];
+// 三档匹配：现在能做 / 只差一个材料 / 可简化制作
+function matchTiers(){
+  const tiers = { ok: [], near: [], simple: [] };
+  ALL.filter(c=>!c.conv).forEach(c=>{
+    // 关键材料（去掉装饰）
+    const need = c.ingredients.filter(i=>!DECOR.includes(i.name) && !['适量','满杯'].includes(i.amt));
+    const have = need.filter(i=>stock.has(i.name));
+    const missing = need.length - have.length;
+    const toolsOk = (c.tools||[]).every(t=>stock.has(t));
+    if(missing===0 && toolsOk) tiers.ok.push(c);
+    else if(missing===0) tiers.simple.push(c);       // 材料齐但缺工具 → 可简化
+    else if(missing===1) tiers.near.push(c);         // 只差一个材料
+  });
+  return tiers;
+}
+function renderMix(){
+  const box = document.getElementById('mix-result');
+  if(stock.size===0){box.innerHTML='<div class="empty">☝️ 先勾选你酒柜里有的东西</div>';return;}
+  const t = matchTiers();
+  const card = (c)=>`<div class="gcard" onclick="openDetail('${c.id}')">
+    <div class="im" style="${phBg(c)}"><span class="ph-e">${c.emoji}</span></div>
+    <div class="bd"><div class="cn">${c.name}</div><div class="en">${c.en}</div>
+    <div class="mt">${c.base} · ${c.time} · ${c.level}</div></div></div>`;
+  let html = '';
+  if(t.ok.length) html += `<div class="cnt" style="color:#8fd19a">🍸 现在就能做（${t.ok.length}）</div><div class="grid">${t.ok.map(card).join('')}</div>`;
+  if(t.simple.length) html += `<div class="cnt" style="margin-top:18px;color:var(--gold2)">🛠 材料够，缺工具也能做（${t.simple.length}）</div><div class="grid">${t.simple.map(card).join('')}</div>`;
+  if(t.near.length) html += `<div class="cnt" style="margin-top:18px;color:var(--muted)">➕ 只差一个材料（${t.near.length}）</div><div class="grid">${t.near.map(card).join('')}</div>`;
+  box.innerHTML = html || '<div class="empty">还没凑出配方，再多勾几样试试？</div>';
+}
+renderStock(); renderMix();
+
+// 按味道找酒
+const TASTE = window.TASTES;
+let tastePick = new Set();
+document.getElementById('taste-chips').innerHTML = TASTE.map(t=>
+  `<div class="chip" data-t="${t}" onclick="toggleTaste('${t}')">${t}</div>`).join('');
+function toggleTaste(t){
+  tastePick.has(t)?tastePick.delete(t):tastePick.add(t);
+  document.querySelectorAll('#taste-chips .chip').forEach(x=>x.classList.toggle('on', tastePick.has(x.dataset.t)));
+  renderTaste();
+}
+function renderTaste(){
+  const box = document.getElementById('taste-result');
+  if(tastePick.size===0){box.innerHTML='<div class="empty">☝️ 先选你今晚想要的味道</div>';return;}
+  const scored = ALL.map(c=>({c, n:c.tags.filter(t=>tastePick.has(t)).length}))
+    .filter(x=>x.n>0).sort((a,b)=>b.n-a.n);
+  box.innerHTML = `<div class="cnt">匹配 ${scored.length} 杯，按契合度排序：</div><div class="grid">`+
+    scored.map(x=>`
+      <div class="gcard" onclick="openDetail('${x.c.id}')">
+        <div class="im" style="${phBg(x.c)}"><span class="ph-e">${x.c.emoji}</span></div>
+        <div class="bd"><div class="cn">${x.c.name}</div><div class="en">${x.c.en}</div>
+        <div class="mt">${x.c.tags.slice(0,3).join(' · ')}</div></div>
+      </div>`).join('')+`</div>`;
+}
+renderTaste();
+
+// 便利店调酒列表
+document.getElementById('conv-grid').innerHTML = CV.map(c=>`
+  <div class="gcard" onclick="openDetail('${c.id}')">
+    <div class="im" style="${phBg(c)}"><span class="ph-e">${c.emoji}</span></div>
+    <div class="bd"><div class="cn">${c.name}</div><div class="en">${c.en}</div>
+    <div class="mt">${c.base} · ${c.abv} · ${c.level}</div></div>
+  </div>`).join('');
+
+// 详情
+function openDetail(id){
+  const c = ALL.find(x=>x.id===id);
+  const backTo = c.conv ? 'conv' : 'list';
+  document.getElementById('p-detail').innerHTML = `
+    <div class="head" style="${phBg(c)}">
+      <button class="back" onclick="go('${backTo}')"><svg class="ico"><use href="#i-back"/></svg></button><span class="ph-e">${c.emoji}</span>
+    </div>
+    <div class="wrap">
+      <h2>${c.name}</h2><div class="en">${c.en}</div>
+      <div class="metar"><span class="tag g">${c.base}</span><span class="tag">${c.level}</span><span class="tag">${c.abv}</span><span class="tag">⏱ ${c.time||''}</span><span class="tag">🥃 ${c.glass||''}</span></div>
+      <div class="tagrow">${(c.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      <p class="story">${c.intro}</p>
+      <div class="block"><h4><svg class="ico"><use href="#i-glass"/></svg> 配料</h4>${c.ingredients.map(i=>`<div class="ing"><span>${i.name}${i.note?`<br><small style="color:var(--muted);font-size:11px">${i.note}</small>`:''}</span><span class="amt">${i.amt}</span></div>`).join('')}</div>
+      <div class="block"><h4><svg class="ico"><use href="#i-spoon"/></svg> 步骤</h4>${c.steps.map((s,i)=>`<div class="step"><div class="no">${i+1}</div><div>${s}</div></div>`).join('')}</div>
+      <div style="display:flex;gap:10px;margin-top:16px">
+        <a class="video" style="flex:1;margin-top:0" href="${c.video}" target="_blank"><div class="pl"><svg class="ico"><use href="#i-play"/></svg></div><div><b>看调制视频</b></div></a>
+        <button class="copybtn" onclick="copyRecipe('${c.id}')"><svg class="ico" style="width:18px;height:18px"><use href="#i-pen"/></svg> 复制</button>
+      </div>
+      <div class="block"><h4><svg class="ico"><use href="#i-scroll"/></svg> 背后的故事</h4><p class="story">${c.story}</p></div>
+    </div>`;
+  go('detail');
+}
+
+// 故事页
+document.getElementById('story-list').innerHTML = S.map(s=>`
+  <div class="scard" onclick="alert('演示：打开文章《${s.title}》')">
+    <div class="cov">${s.cover}</div>
+    <div><span class="stag">${s.tag}</span><h4>${s.title}</h4><p>${s.excerpt}</p></div>
+  </div>`).join('');
+document.getElementById('spirit-dex').innerHTML = SP.map(s=>`
+  <div class="sp"><div class="e">${s.emoji}</div><div class="n">${s.name}</div><div class="en" style="margin-top:2px">${s.note}</div></div>`).join('');
+
+// 搜索
+function doSearch(v){
+  v=v.trim();if(!v){renderList();go('list');return;}
+  const r = ALL.filter(c=>(c.name+c.en+c.base+c.intro).toLowerCase().includes(v.toLowerCase()));
+  go('list');
+  document.getElementById('list-grid').innerHTML = r.length? r.map(c=>`
+    <div class="gcard" onclick="openDetail('${c.id}')">
+      <div class="im" style="${phBg(c)}"><span class="ph-e">${c.emoji}</span></div>
+      <div class="bd"><div class="cn">${c.name}</div><div class="en">${c.en}</div>
+      <div class="mt">${c.base} · ${c.abv}</div></div></div>`).join('')
+    : '<div class="empty">没找到「'+v+'」相关配方 🥲</div>';
+}
+
+// 复制配方（剪贴板 + 兜底）
+function copyRecipe(id){
+  const c = ALL.find(x=>x.id===id); if(!c) return;
+  const txt = `${c.name} ${c.en}\n${c.ingredients.map(i=>`${i.name} ${i.amt}`).join('\n')}\n\n步骤：\n${c.steps.map((s,i)=>`${i+1}. ${s}`).join('\n')}`;
+  const done = ()=>{ const b=document.querySelector('.copybtn'); if(b){const o=b.innerHTML;b.innerHTML='✓ 已复制';setTimeout(()=>b.innerHTML=o,1500);} };
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done).catch(()=>fallbackCopy(txt,done)); }
+  else fallbackCopy(txt,done);
+}
+function fallbackCopy(txt,done){
+  const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta);
+  ta.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta); done();
+}
+
+// 悬浮搜索小酒杯
+function toggleFab(){ document.getElementById('fab-pop').classList.toggle('on'); }
+function fabSearch(v){
+  v=(v||'').trim();
+  let c;
+  if(v===''){ c = ALL[Math.floor(Math.random()*ALL.length)]; }              // 随机一杯
+  else { c = ALL.find(x=>(x.name+x.en+x.base+x.intro+x.tags.join('')).includes(v)) || ALL.find(x=>x.name.includes(v)) || ALL[0]; }
+  document.getElementById('fab-pop').classList.remove('on');
+  document.getElementById('fab-q').value='';
+  openDetail(c.id);
+}
+document.addEventListener('click', e=>{
+  if(!e.target.closest('.fab') && !e.target.closest('.fab-pop')) document.getElementById('fab-pop').classList.remove('on');
+});
+</script>
+</body>
+</html>
