@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { ALL_COCKTAILS } from "@/lib/data";
 
+export const dynamic = "force-static";
+
 const BASE = process.env.NEXT_PUBLIC_SITE_URL || "https://jitui.chuangye-yanzheng.top";
 
 export default function sitemap(): MetadataRoute.Sitemap {
