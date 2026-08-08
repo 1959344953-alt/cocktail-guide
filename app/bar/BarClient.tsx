@@ -16,7 +16,7 @@ function StockGroup({ title, icon, items, stock, onToggle }: {
       <div className="text-[13px] text-[--gold2] tracking-[1px] font-bold mt-4 mb-2.5">
         {icon} {title}
       </div>
-      <div className="grid grid-cols-4 gap-2.5">
+      <div className="grid grid-cols-4 md:grid-cols-8 gap-2.5 md:gap-3">
         {items.map((s) => {
           const on = stock.has(s.name);
           return (
@@ -48,7 +48,7 @@ function TierBlock({ title, color, list }: { title: string; color: string; list:
       <div className="text-[13px] font-bold mb-2.5" style={{ color }}>
         {title}（{list.length}）
       </div>
-      <div className="grid grid-cols-2 gap-3.5">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 md:gap-5">
         {list.map((c) => (
           <CocktailCard key={c.id} c={c} />
         ))}
@@ -68,7 +68,7 @@ export default function BarClient() {
   };
 
   return (
-    <div className="max-w-[440px] mx-auto relative z-[1] pb-24 min-h-screen">
+    <div className="max-w-[440px] md:max-w-[1024px] mx-auto relative z-[1] pb-24 md:pb-12 min-h-screen">
       <TopBar />
       <div className="px-4.5 pt-4 page-anim">
         <h1 className="serif text-[20px] tracking-[1px]">我的酒柜</h1>

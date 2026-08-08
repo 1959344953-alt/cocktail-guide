@@ -10,12 +10,12 @@ export const metadata: Metadata = {
 
 export default function ConveniencePage() {
   return (
-    <div className="max-w-[440px] mx-auto relative z-[1] pb-24 min-h-screen">
+    <div className="max-w-[440px] md:max-w-[1024px] mx-auto relative z-[1] pb-24 md:pb-12 min-h-screen">
       <TopBar />
       <div className="px-4.5 pt-4 page-anim">
         <Section title="便利店调酒" />
         <p className="text-[13px] text-[--muted] mb-4">走进任何一家便利店，就能调出的微醺。</p>
-        <div className="grid grid-cols-2 gap-3.5">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 md:gap-5">
           {CONVENIENCE.map((c) => (
             <CocktailCard key={c.id} c={c} />
           ))}

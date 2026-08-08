@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function StoriesPage() {
   return (
-    <div className="max-w-[440px] mx-auto relative z-[1] pb-24 min-h-screen">
+    <div className="max-w-[440px] md:max-w-[1024px] mx-auto relative z-[1] pb-24 md:pb-12 min-h-screen">
       <TopBar />
       <div className="px-4.5 pt-4 page-anim">
         <Section title="故事 · 知识 · 文化" />
@@ -37,7 +37,7 @@ export default function StoriesPage() {
         ))}
 
         <Section title="基酒图鉴" />
-        <div className="grid grid-cols-3 gap-2.5">
+        <div className="grid grid-cols-3 md:grid-cols-6 gap-2.5 md:gap-4">
           {SPIRITS.map((s) => (
             <div key={s.name} className="bg-[--panel] border border-[--line] rounded-[14px] py-3.5 px-1 text-center">
               <div className="text-[30px] leading-none">{s.emoji}</div>

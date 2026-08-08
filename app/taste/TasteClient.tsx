@@ -16,7 +16,7 @@ export default function TasteClient() {
   };
 
   return (
-    <div className="max-w-[440px] mx-auto relative z-[1] pb-24 min-h-screen">
+    <div className="max-w-[440px] md:max-w-[1024px] mx-auto relative z-[1] pb-24 md:pb-12 min-h-screen">
       <TopBar />
       <div className="px-4.5 pt-4 page-anim">
         <h1 className="serif text-[20px] tracking-[1px]">按味道找酒</h1>
@@ -53,7 +53,7 @@ export default function TasteClient() {
               <div className="text-[13px] font-bold text-[--gold2] mb-2.5">
                 匹配 {results.length} 杯，按契合度排序：
               </div>
-              <div className="grid grid-cols-2 gap-3.5">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 md:gap-5">
                 {results.map((c) => (
                   <CocktailCard key={c.id} c={c} />
                 ))}

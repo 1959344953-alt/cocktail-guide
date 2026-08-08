@@ -40,11 +40,11 @@ export function CocktailCard({ c, horizontal }: { c: Cocktail; horizontal?: bool
         </div>
       ) : (
         <div className="gcard">
-          <PhotoBg c={c} className="h-[96px]" />
-          <div className="p-3">
-            <div className="serif text-[15px] leading-tight">{c.name}</div>
-            <div className="text-[10px] tracking-[1px] text-[--gold2]">{c.en}</div>
-            <div className="mt-1.5 text-[11px] text-[--muted]">
+          <PhotoBg c={c} className="h-[96px] md:h-[160px]" />
+          <div className="p-3 md:p-4">
+            <div className="serif text-[15px] md:text-[17px] leading-tight">{c.name}</div>
+            <div className="text-[10px] md:text-[11px] tracking-[1px] text-[--gold2]">{c.en}</div>
+            <div className="mt-1.5 text-[11px] md:text-[12px] text-[--muted]">
               {c.base} · {c.abv} · {c.level}
             </div>
           </div>
@@ -99,7 +99,7 @@ const TAB_PHOTOS: Record<string, string> = {
 
 export function TabBar({ active }: { active: string }) {
   return (
-    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[440px] z-30 grid grid-cols-5 px-1.5 pt-2 pb-[calc(8px+env(safe-area-inset-bottom))] bg-[rgba(20,16,24,.92)] backdrop-blur-md border-t border-[--line]">
+    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[440px] z-30 grid grid-cols-5 px-1.5 pt-2 pb-[calc(8px+env(safe-area-inset-bottom))] bg-[rgba(20,16,24,.92)] backdrop-blur-md border-t border-[--line] md:hidden">
       {TABS.map((t) => {
         const on = active === t.href;
         const isMid = t.href === "/bar";
@@ -127,17 +127,34 @@ export function TabBar({ active }: { active: string }) {
 
 export function TopBar() {
   return (
-    <header className="sticky top-0 z-20 bg-[rgba(20,16,24,.75)] backdrop-blur-md border-b border-[--line] px-4.5 pt-3.5 pb-3">
-      <Link href="/" className="flex items-center gap-2.5 no-underline text-[--ink]">
-        <span
-          className="ph w-[30px] h-[30px] border-[1.2px]"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=120&q=80&auto=format&fit=crop')" }}
-        />
-        <div>
-          <h1 className="serif text-[19px] tracking-[2px] leading-none">调酒指南</h1>
-          <small className="text-[10px] tracking-[3px] text-[--gold2]">THE MIXOLOGY ALMANAC</small>
-        </div>
-      </Link>
+    <header className="sticky top-0 z-20 bg-[rgba(20,16,24,.75)] backdrop-blur-md border-b border-[--line] px-4.5 pt-3.5 pb-3 md:px-8 md:py-4">
+      <div className="max-w-[1024px] mx-auto flex items-center justify-between gap-4">
+        <Link href="/" className="flex items-center gap-2.5 no-underline text-[--ink]">
+          <span
+            className="ph w-[30px] h-[30px] border-[1.2px]"
+            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=120&q=80&auto=format&fit=crop')" }}
+          />
+          <div>
+            <h1 className="serif text-[19px] tracking-[2px] leading-none">调酒指南</h1>
+            <small className="text-[10px] tracking-[3px] text-[--gold2]">THE MIXOLOGY ALMANAC</small>
+          </div>
+        </Link>
+        {/* PC 横版导航 */}
+        <nav className="hidden md:flex items-center gap-1">
+          {TABS.map((t) => (
+            <Link
+              key={t.href}
+              href={t.href}
+              className="px-4 py-2 rounded-full text-[14px] no-underline text-[--muted] hover:text-[--gold2] hover:bg-[rgba(201,162,75,.08)] transition-colors"
+            >
+              {t.label}
+            </Link>
+          ))}
+        </nav>
+        <Link href="/publish" className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-[13px] font-bold no-underline bg-[linear-gradient(145deg,var(--gold2),var(--gold))] text-[#1c1720]">
+          ✍️ 发布配方
+        </Link>
+      </div>
     </header>
   );
 }

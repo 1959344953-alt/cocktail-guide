@@ -24,7 +24,7 @@ export default function PublishClient() {
 
   if (done) {
     return (
-      <div className="max-w-[440px] mx-auto relative z-[1] pb-24 min-h-screen">
+      <div className="max-w-[440px] md:max-w-[640px] mx-auto relative z-[1] pb-24 md:pb-12 min-h-screen">
         <TopBar />
         <div className="px-4.5 pt-16 text-center page-anim">
           <div className="text-[56px]">🍸</div>
@@ -40,7 +40,7 @@ export default function PublishClient() {
   }
 
   return (
-    <div className="max-w-[440px] mx-auto relative z-[1] pb-24 min-h-screen">
+    <div className="max-w-[440px] md:max-w-[640px] mx-auto relative z-[1] pb-24 md:pb-12 min-h-screen">
       <TopBar />
       <div className="px-4.5 pt-4 page-anim">
         <h1 className="serif text-[20px] tracking-[1px]">发布配方</h1>
