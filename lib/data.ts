@@ -7,7 +7,7 @@ export const COCKTAILS: Cocktail[] = [
     id: "negroni", name: "尼格罗尼", en: "Negroni", cat: "经典", base: "金酒",
     level: "简单", abv: "24%", time: "3 分钟", glass: "古典杯", emoji: "🍊",
     color: "#B5321E", tags: ["苦甜平衡", "草本", "酒感强", "高级经典"],
-    photo: u("photo-1529504426707-d1d7a0dc458a"),
+    photo: "https://images.pexels.com/photos/14387131/pexels-photo-14387131.jpeg?w=800&h=600&fit=crop",
     tools: ["量酒器", "吧勺", "古典杯"],
     intro: "苦甜平衡的意大利开胃酒，等比三杯，永不出错。",
     ingredients: [
@@ -29,7 +29,7 @@ export const COCKTAILS: Cocktail[] = [
     id: "margarita", name: "玛格丽特", en: "Margarita", cat: "经典", base: "龙舌兰",
     level: "简单", abv: "22%", time: "4 分钟", glass: "玛格丽特杯", emoji: "🧂",
     color: "#7FB069", tags: ["酸", "甜", "清爽", "适合新手"],
-    photo: u("photo-1551538827-9c037cb4f32a"),
+    photo: "https://images.pexels.com/photos/6428258/pexels-photo-6428258.jpeg?w=800&h=600&fit=crop",
     tools: ["量酒器", "摇壶", "滤冰器", "玛格丽特杯"],
     intro: "咸口杯沿、酸甜清爽，最受欢迎的龙舌兰鸡尾酒。",
     ingredients: [
@@ -51,7 +51,7 @@ export const COCKTAILS: Cocktail[] = [
     id: "mojito", name: "莫吉托", en: "Mojito", cat: "经典", base: "朗姆酒",
     level: "简单", abv: "13%", time: "6 分钟", glass: "高球杯", emoji: "🌿",
     color: "#4FA96B", tags: ["清爽", "酸", "甜", "低酒精", "适合新手"],
-    photo: u("photo-1551754655-cd27e38d2076"),
+    photo: "https://images.pexels.com/photos/4051220/pexels-photo-4051220.jpeg?w=800&h=600&fit=crop",
     tools: ["捣棒", "吧勺", "高球杯"],
     intro: "薄荷与青柠的夏日灵魂，海明威的最爱。",
     ingredients: [
@@ -75,7 +75,7 @@ export const COCKTAILS: Cocktail[] = [
     id: "oldfashioned", name: "古典鸡尾酒", en: "Old Fashioned", cat: "经典", base: "威士忌",
     level: "中等", abv: "32%", time: "4 分钟", glass: "古典杯", emoji: "🥃",
     color: "#A15C2E", tags: ["威士忌主导", "微甜", "酒感强", "高级经典"],
-    photo: u("photo-1470337458703-46ad1756a187"),
+    photo: "https://images.pexels.com/photos/8346712/pexels-photo-8346712.jpeg?w=800&h=600&fit=crop",
     tools: ["量酒器", "吧勺", "古典杯"],
     intro: "鸡尾酒的鼻祖，威士忌、糖、苦精的极简艺术。",
     ingredients: [
@@ -97,7 +97,7 @@ export const COCKTAILS: Cocktail[] = [
     id: "cosmopolitan", name: "大都会", en: "Cosmopolitan", cat: "经典", base: "伏特加",
     level: "简单", abv: "20%", time: "3 分钟", glass: "马天尼杯", emoji: "🩷",
     color: "#C6185C", tags: ["果香", "酸", "甜", "粉红"],
-    photo: u("photo-1560512823-829485b8bf24"),
+    photo: "https://images.pexels.com/photos/8800263/pexels-photo-8800263.jpeg?w=800&h=600&fit=crop",
     tools: ["量酒器", "摇壶", "滤冰器", "马天尼杯"],
     intro: "粉红色的都市女郎，《欲望都市》带火全球。",
     ingredients: [
@@ -119,7 +119,7 @@ export const COCKTAILS: Cocktail[] = [
     id: "whiskeysour", name: "威士忌酸", en: "Whiskey Sour", cat: "经典", base: "威士忌",
     level: "中等", abv: "23%", time: "5 分钟", glass: "古典杯", emoji: "🍋",
     color: "#D9A441", tags: ["酸", "甜", "绵密", "进阶"],
-    photo: u("photo-1551024709-8f23befc6f87"),
+    photo: "https://images.pexels.com/photos/14161977/pexels-photo-14161977.jpeg?w=800&h=600&fit=crop",
     tools: ["量酒器", "摇壶", "滤冰器", "古典杯"],
     intro: "酸甜绵密带蛋白泡沫，酸酒家族的教科书。",
     ingredients: [
@@ -141,7 +141,7 @@ export const COCKTAILS: Cocktail[] = [
     id: "espressomartini", name: "浓缩咖啡马天尼", en: "Espresso Martini", cat: "现代", base: "伏特加",
     level: "中等", abv: "18%", time: "4 分钟", glass: "马天尼杯", emoji: "☕",
     color: "#3B2417", tags: ["咖啡味", "甜", "奶香", "饭后"],
-    photo: u("photo-1574096079513-d8259312b785"),
+    photo: "https://images.pexels.com/photos/3407778/pexels-photo-3407778.jpeg?w=800&h=600&fit=crop",
     tools: ["量酒器", "摇壶", "滤冰器", "马天尼杯"],
     intro: "「让我清醒，也让我微醺」，深夜咖啡因的浪漫。",
     ingredients: [
@@ -163,7 +163,7 @@ export const COCKTAILS: Cocktail[] = [
     id: "ginfizz", name: "金菲士", en: "Gin Fizz", cat: "经典", base: "金酒",
     level: "简单", abv: "14%", time: "4 分钟", glass: "高球杯", emoji: "🫧",
     color: "#8FC1D4", tags: ["清爽", "酸", "气泡", "低酒精"],
-    photo: u("photo-1536261542624-83d1e3dfcf6c"),
+    photo: "https://images.pexels.com/photos/12902691/pexels-photo-12902691.jpeg?w=800&h=600&fit=crop",
     tools: ["量酒器", "摇壶", "滤冰器", "高球杯"],
     intro: "气泡绵柔、清新解腻的金酒长饮。",
     ingredients: [
@@ -187,7 +187,7 @@ export const CONVENIENCE: Cocktail[] = [
   {
     id: "cv-yakult", name: "养乐多特调", en: "Yakult Sour", cat: "便利店", base: "伏特加",
     level: "超简单", abv: "8%", time: "1 分钟", glass: "随行杯", emoji: "🥛", color: "#E8A33D", conv: true,
-    tags: ["酸甜", "便利店", "零失败"], photo: u("photo-1514362545857-3bc16c4c7d1b"),
+    tags: ["酸甜", "便利店", "零失败"], photo: "https://images.pexels.com/photos/4975373/pexels-photo-4975373.jpeg?w=800&h=600&fit=crop",
     tools: ["吸管"],
     intro: "便利店三件套：养乐多+柠檬味汽水+一小瓶伏特加，酸甜到停不下来。",
     ingredients: [
@@ -203,7 +203,7 @@ export const CONVENIENCE: Cocktail[] = [
   {
     id: "cv-icetea", name: "微醺冰红茶", en: "Boozy Iced Tea", cat: "便利店", base: "威士忌",
     level: "超简单", abv: "10%", time: "1 分钟", glass: "随行杯", emoji: "🧋", color: "#B5732E", conv: true,
-    tags: ["甜", "茶香", "便利店", "零失败"], photo: u("photo-1551538827-9c037cb4f32a"),
+    tags: ["甜", "茶香", "便利店", "零失败"], photo: "https://images.pexels.com/photos/8619612/pexels-photo-8619612.jpeg?w=800&h=600&fit=crop",
     tools: [],
     intro: "一瓶冰红茶配一小瓶威士忌，午后办公室的秘密快乐。",
     ingredients: [

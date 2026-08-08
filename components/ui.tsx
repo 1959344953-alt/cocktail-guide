@@ -27,9 +27,7 @@ export function CocktailCard({ c, horizontal }: { c: Cocktail; horizontal?: bool
     <Link href={`/cocktails/${c.id}`} className="block">
       {horizontal ? (
         <div className="rcard min-w-[210px]">
-          <PhotoBg c={c} className="h-[120px] grid place-items-center text-[34px]">
-            <span className="drop-shadow-[0_3px_8px_rgba(0,0,0,.6)]">{c.emoji}</span>
-          </PhotoBg>
+          <PhotoBg c={c} className="h-[120px]" />
           <div className="p-3.5">
             <div className="serif text-[17px] leading-tight">{c.name}</div>
             <div className="text-[11px] tracking-[1px] text-[--gold2]">{c.en}</div>
@@ -42,9 +40,7 @@ export function CocktailCard({ c, horizontal }: { c: Cocktail; horizontal?: bool
         </div>
       ) : (
         <div className="gcard">
-          <PhotoBg c={c} className="h-[96px] grid place-items-center text-[30px]">
-            <span className="drop-shadow-[0_3px_8px_rgba(0,0,0,.6)]">{c.emoji}</span>
-          </PhotoBg>
+          <PhotoBg c={c} className="h-[96px]" />
           <div className="p-3">
             <div className="serif text-[15px] leading-tight">{c.name}</div>
             <div className="text-[10px] tracking-[1px] text-[--gold2]">{c.en}</div>

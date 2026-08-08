@@ -55,9 +55,7 @@ export default async function CocktailDetailPage({ params }: Props) {
       <div className="page-anim">
         {/* 头图 */}
         <div className="relative">
-          <PhotoBg c={c} className="h-[200px] grid place-items-center border-b border-[--line]">
-            <span className="text-[56px] drop-shadow-[0_4px_12px_rgba(0,0,0,.7)]">{c.emoji}</span>
-          </PhotoBg>
+          <PhotoBg c={c} className="h-[200px] border-b border-[--line]" />
           <Link
             href={c.conv ? "/convenience" : "/cocktails"}
             className="absolute top-3.5 left-3.5 w-[38px] h-[38px] rounded-full grid place-items-center bg-[rgba(0,0,0,.4)] border border-[--line] text-[18px] no-underline"
