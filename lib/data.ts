@@ -24,7 +24,7 @@ export const COCKTAILS: Cocktail[] = [
     ],
     video: "https://www.bilibili.com/",
     story: "1919 年佛罗伦萨，Camillo Negroni 伯爵嫌美式鸡尾酒太温和，让调酒师把苏打水换成金酒。金酒是烈性的执念，味美思是温柔的妥协，金巴利是放不下的苦涩——三种材料等量对冲、互不相让，正如一段势均力敌的爱情。伯爵大概没想到，这场「调烈一点」的任性，定义了整个鸡尾酒世界的审美。",
-    lore: "一段势均力敌的爱情。",
+    lore: "把美式鸡尾酒调烈一点。",
   },
   {
     id: "margarita", name: "玛格丽特", en: "Margarita", cat: "经典", base: "龙舌兰",
@@ -72,7 +72,7 @@ export const COCKTAILS: Cocktail[] = [
     ],
     video: "https://www.bilibili.com/",
     story: "莫吉托起源于古巴哈瓦那，远祖是 16 世纪水手们治疗坏血病的草药酒。真正让它封神的是海明威——他在哈瓦那住了二十年，每天去 La Bodeguita 喝一杯，还留下涂鸦「我的莫吉托在 La Bodeguita」。薄荷是夏天的入场券，青柠是清晨的清醒剂，朗姆酒是成年人藏在杯底的自由——这杯酒替所有想逃去海边的人，先逃了。",
-    lore: "替所有想逃去海边的人，先逃了。",
+    lore: "「我的莫吉托在 La Bodeguita。」——海明威",
   },
   {
     id: "oldfashioned", name: "古典鸡尾酒", en: "Old Fashioned", cat: "经典", base: "威士忌",
@@ -95,7 +95,7 @@ export const COCKTAILS: Cocktail[] = [
     ],
     video: "https://www.bilibili.com/",
     story: "1880 年代的肯塔基赛马俱乐部，挑剔的绅士们嫌新式鸡尾酒花哨，要求调酒师「用老办法调一杯」——威士忌、糖、苦精，仅此而已。糖是平淡日常里的一点甜，苦精是生活教会你的那点苦。它像一段不花哨的关系：不需要花言巧语，但每一口都掷地有声。",
-    lore: "不需要花言巧语，但每一口都掷地有声。",
+    lore: "用老办法调一杯。",
   },
   {
     id: "godfather", name: "教父", en: "Godfather", cat: "经典", base: "威士忌",
@@ -118,7 +118,7 @@ export const COCKTAILS: Cocktail[] = [
     ],
     video: "https://www.bilibili.com/",
     story: "1972 年《教父》上映，马龙·白兰度用沙哑的嗓音说出「我会给他一个无法拒绝的提议」。这杯以苏格兰威士忌为底、杏仁力娇酒调和的酒，恰如教父本人：威士忌的烈度不容拒绝，杏仁的甜香让你甘愿沉沦，肉桂熏杯升起的那缕烟，是他指尖雪茄的余韵——一杯下肚，你便成了他的家人。",
-    lore: "我会给他一个无法拒绝的提议。",
+    lore: "「我会给他一个无法拒绝的提议。」",
   },
   {
     id: "cosmopolitan", name: "大都会", en: "Cosmopolitan", cat: "经典", base: "伏特加",
@@ -141,7 +141,6 @@ export const COCKTAILS: Cocktail[] = [
     ],
     video: "https://www.bilibili.com/",
     story: "大都会兴起于 1980 年代的纽约，真正让它成为都市文化符号的是《欲望都市》里 Carrie 失恋后点的那一杯。伏特加是都市人的清醒，蔓越莓汁是心口那抹绯红，青柠是尖锐的刺痛——粉色不是浪漫，是把眼泪调成鸡尾酒的颜色。喝完这杯，明天照常上班。",
-    lore: "粉色不是浪漫，是把眼泪调成鸡尾酒的颜色。",
   },
   {
     id: "whiskeysour", name: "威士忌酸", en: "Whiskey Sour", cat: "经典", base: "威士忌",
@@ -164,7 +163,6 @@ export const COCKTAILS: Cocktail[] = [
     ],
     video: "https://www.bilibili.com/",
     story: "19 世纪的水手远航时带着柠檬和烈酒——柠檬防坏血病，烈酒壮胆，两者加糖摇匀，就是最早的酸酒，威士忌酸正是这个家族的教科书。威士忌是海上的风暴，柠檬是咸风里的清醒，糖浆是远方灯塔的光；蛋白摇出的绵密泡沫浮在杯顶，像风暴过后的海面，终于平静。",
-    lore: "风暴过后，海面终于平静。",
   },
   {
     id: "espressomartini", name: "浓缩咖啡马天尼", en: "Espresso Martini", cat: "现代", base: "伏特加",
@@ -187,7 +185,7 @@ export const COCKTAILS: Cocktail[] = [
     ],
     video: "https://www.bilibili.com/",
     story: "1980 年代的伦敦，一位名模走进酒吧，对调酒师说：「给我一杯能让我清醒，又让我微醺的酒。」于是浓缩咖啡、伏特加、咖啡力娇酒被摇进同一杯——咖啡的苦是生活的真相，伏特加是短暂的逃离，糖浆是自欺欺人的甜。这杯深夜咖啡因与酒精的混合物，从此成为都市夜归人的心照不宣。",
-    lore: "让我清醒，也让我微醺。",
+    lore: "「让我清醒，也让我微醺。」",
   },
   {
     id: "ginfizz", name: "金菲士", en: "Gin Fizz", cat: "经典", base: "金酒",
@@ -210,7 +208,6 @@ export const COCKTAILS: Cocktail[] = [
     ],
     video: "https://www.bilibili.com/",
     story: "1888 年，新奥尔良的金菲士风靡全城，酒吧门口排起长队，店家不得不雇几十个人专门摇酒。金酒是南方午后的热风，柠檬是遮阳伞下的光斑，气泡是期待里的小小雀跃——喝一口，好像整个夏天都值得原谅。",
-    lore: "喝一口，好像整个夏天都值得原谅。",
   },
   {
     id: "pinacolada", name: "椰林飘香", en: "Pina Colada", cat: "经典", base: "朗姆酒",
@@ -233,7 +230,7 @@ export const COCKTAILS: Cocktail[] = [
     ],
     video: "https://www.bilibili.com/",
     story: "1954 年，波多黎各的调酒师把这杯献给世界：白朗姆、椰奶、菠萝汁摇出热带甜润，1979 年的神曲《Escape》又把它唱进所有人心里。椰奶是加勒比的白沙滩，菠萝是赤道线上最甜的太阳——它不装深沉、不卖惨，就是坦坦荡荡的快乐，不需要理由。",
-    lore: "坦坦荡荡的快乐，不需要理由。",
+    lore: "如果你喜欢椰林飘香……",
   },
   {
     id: "cubalibre", name: "自由古巴", en: "Cuba Libre", cat: "经典", base: "朗姆酒",
@@ -255,7 +252,7 @@ export const COCKTAILS: Cocktail[] = [
     ],
     video: "https://www.bilibili.com/",
     story: "1900 年，古巴独立战争胜利在望，人们把朗姆酒倒进可乐，举杯高呼「Cuba Libre」（自由的古巴）。可乐是黑色的沉默，朗姆酒是压抑了太久的呐喊，青柠是眼角那滴没掉下来的泪——这杯看似随意的组合，承载的是整个殖民时代的向往。有些自由，是喝出来的。",
-    lore: "有些自由，是喝出来的。",
+    lore: "自由的古巴！",
   },
   {
     id: "singaporesling", name: "新加坡司令", en: "Singapore Sling", cat: "经典", base: "金酒",
@@ -280,7 +277,6 @@ export const COCKTAILS: Cocktail[] = [
     ],
     video: "https://www.bilibili.com/",
     story: "1915 年，新加坡莱佛士酒店 Long Bar，一位女士想喝一杯「像日落一样温柔的酒」，调酒师于是调制了这杯粉红色长饮。金酒是白天的体面，石榴糖浆是黄昏的暧昧，菠萝汁续上热带永不落幕的夏天——它替所有矜持的人，先醉了。",
-    lore: "替所有矜持的人，先醉了。",
   },
   {
     id: "longislandicedtea", name: "长岛冰茶", en: "Long Island Iced Tea", cat: "现代", base: "伏特加",
@@ -306,7 +302,7 @@ export const COCKTAILS: Cocktail[] = [
     ],
     video: "https://www.bilibili.com/",
     story: "1970 年代纽约长岛，有人把伏特加、金酒、朗姆、龙舌兰、君度五种烈酒倒进同一杯，再用可乐伪装成冰茶的颜色——看着人畜无害，实则一杯顶五杯。它像一段表面风平浪静的关系，内里早已暗流涌动：你以为是温柔，其实是烈性。",
-    lore: "你以为是温柔，其实是烈性。",
+    lore: "看着像冰茶，喝起来像烈酒——一杯顶五杯。",
   },
   {
     id: "screwdriver", name: "螺丝起子", en: "Screwdriver", cat: "经典", base: "伏特加",
@@ -328,7 +324,6 @@ export const COCKTAILS: Cocktail[] = [
     ],
     video: "https://www.bilibili.com/",
     story: "1949 年《时代》杂志首次记载：在伊朗油田工作的美国石油工人，把伏特加和橙汁倒进杯子，手边没有吧勺，随手抄起一把螺丝刀搅拌——酒因此得名 Screwdriver。橙汁是阳光下最诚实的甜，伏特加是藏在甜里的烈性，一杯下肚，仿佛沙漠里的工棚都亮了起来。",
-    lore: "有些清醒，是用螺丝刀搅出来的。",
   },
 ];
 
@@ -348,7 +343,6 @@ export const CONVENIENCE: Cocktail[] = [
     steps: ["杯中加满冰块", "倒入养乐多与伏特加", "补满柠檬味汽水", "轻轻搅拌即可"],
     video: "https://www.douyin.com/",
     story: "养乐多是童年的味道，伏特加是成年的入口。当童年的甜撞上成年的烈，就是这杯便利店里的养乐多特调——零门槛的制作，装着的却是成年人最复杂的心事。小时候想快点长大，长大后想回到小时候。",
-    lore: "小时候想快点长大，长大后想回到小时候。",
   },
   {
     id: "cv-icetea", name: "微醺冰红茶", en: "Boozy Iced Tea", cat: "便利店", base: "威士忌",
@@ -364,7 +358,6 @@ export const CONVENIENCE: Cocktail[] = [
     steps: ["冰红茶倒出三分之一", "补入威士忌", "放柠檬片，摇匀", "冰镇后饮用"],
     video: "https://www.douyin.com/",
     story: "冰红茶是学生时代的夏夜，威士忌是工作后的凌晨。把两者倒进同一杯，就是成年人最诚实的自白：我还想保留一点甜，但我已经尝过生活的烈。拧开瓶盖的那一下，是忙碌生活里难得的喘息。",
-    lore: "我还想保留一点甜，但我已经尝过生活的烈。",
   },
   {
     id: "cv-irishcarbomb", name: "爱尔兰汽车人炸弹", en: "Irish Carbomb", cat: "便利店", base: "威士忌",
@@ -382,7 +375,6 @@ export const CONVENIENCE: Cocktail[] = [
     steps: ["冰杯加满冰块", "挤入柠檬片提香", "倒入整罐凯撒黄油啤酒", "缓慢注入尊美醇威士忌，轻微搅拌"],
     video: "https://www.douyin.com/",
     story: "爱尔兰经典「汽车炸弹」的便利店版本：尊美醇威士忌沉进黄油啤酒，一口闷下——像一场勇敢的坠落。黄油啤酒的甜是温柔的假象，威士忌的烈是真实的底色。这杯酒教你的不是喝酒，是：有些事，趁热。",
-    lore: "有些事，趁热。",
   },
 ];
 
