@@ -10,40 +10,37 @@ const QUICK = [
 ];
 
 export default function HomePage() {
-  const hero = COCKTAILS[0]; // 尼格罗尼
+  const hero = COCKTAILS.find((c) => c.id === "godfather") || COCKTAILS[0]; // 教父
   return (
     <div className="max-w-[440px] md:max-w-[1024px] mx-auto relative z-[1] pb-24 md:pb-12 min-h-screen">
       <TopBar />
 
       <div className="px-4.5 pt-4 md:px-8 md:pt-8 page-anim">
-        {/* Hero —— 手机竖版上下、PC 左右分栏 */}
+        {/* Hero —— 手机：照片做背景+遮罩文字在上层（不挡字）；PC：左文右图 */}
         <div className="md:grid md:grid-cols-2 md:gap-8 md:items-center">
           <div
-            className="relative rounded-[16px] overflow-hidden border border-[--line] p-5 md:p-10 shadow-[0_10px_30px_rgba(0,0,0,.45)]"
-            style={{ background: "linear-gradient(160deg,#2b2030,#191320)" }}
+            className="relative rounded-[16px] overflow-hidden border border-[--line] p-5 md:p-10 shadow-[0_10px_30px_rgba(0,0,0,.45)] bg-cover bg-center"
+            style={{
+              backgroundImage: `linear-gradient(165deg, rgba(20,16,24,.88) 0%, rgba(20,16,24,.72) 55%, rgba(20,16,24,.88) 100%), url(${hero.photo})`,
+            }}
           >
-            <div className="text-[11px] tracking-[4px] text-[--gold2]">OUR SOUL NEEDS IT</div>
-            <h2 className="serif text-[26px] md:text-[38px] mt-2 mb-1.5 leading-[1.3]">
-              我们的身体不需要酒精
-              <br />
-              但灵魂需要！
-            </h2>
-            <p className="text-[14px] md:text-[16px] text-[--muted]">今夜先从一杯{hero.name}开始。</p>
-            <div className="flex gap-2 mt-4">
-              <Link href={`/cocktails/${hero.id}`} className="cta">
-                查看配方 →
-              </Link>
-              <Link href="/cocktails" className="cta ghost">
-                全部配方
-              </Link>
+            <div className="relative z-[1]">
+              <div className="text-[11px] tracking-[4px] text-[--gold2]">OUR SOUL NEEDS IT</div>
+              <h2 className="serif text-[26px] md:text-[38px] mt-2 mb-1.5 leading-[1.3]">
+                我们的身体不需要酒精
+                <br />
+                但灵魂需要！
+              </h2>
+              <p className="text-[14px] md:text-[16px] text-[--muted]">今夜先从一杯{hero.name}开始。</p>
+              <div className="flex gap-2 mt-4">
+                <Link href={`/cocktails/${hero.id}`} className="cta">
+                  查看配方 →
+                </Link>
+                <Link href="/cocktails" className="cta ghost">
+                  全部配方
+                </Link>
+              </div>
             </div>
-            <div
-              className="absolute -right-1 -bottom-2 w-[150px] h-[150px] md:hidden rounded-full border-2 border-[--gold] opacity-90 bg-cover bg-center"
-              style={{
-                backgroundImage: `url(${hero.photo})`,
-                boxShadow: "0 0 0 3px rgba(20,16,24,.6), 0 10px 30px rgba(0,0,0,.5)",
-              }}
-            />
           </div>
           {/* PC 右侧大图 */}
           <div

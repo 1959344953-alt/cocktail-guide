@@ -94,6 +94,28 @@ export const COCKTAILS: Cocktail[] = [
     story: "1880 年代肯塔基赛马俱乐部，客人要「用老办法调一杯」，Old Fashioned 由此得名。",
   },
   {
+    id: "godfather", name: "教父", en: "Godfather", cat: "经典", base: "威士忌",
+    level: "中等", abv: "28%", time: "5 分钟", glass: "古典杯", emoji: "🥃",
+    color: "#8A5A2B", tags: ["杏仁", "威士忌主导", "烟熏", "高级经典"],
+    photo: "https://images.pexels.com/photos/941864/pexels-photo-941864.jpeg?w=800&h=600&fit=crop",
+    tools: ["量酒器", "吧勺", "古典杯"],
+    intro: "威士忌的醇厚遇上杏仁力娇酒的甜香，烟雾缭绕，如教父般沉稳有力。",
+    ingredients: [
+      { name: "威士忌", amt: "45ml", note: "苏格兰威士忌风味最佳" },
+      { name: "杏仁力娇酒", amt: "15ml" },
+      { name: "肉桂棒", amt: "1根", note: "熏杯用，这一环节不可省略" },
+      { name: "大冰块", amt: "1块" },
+    ],
+    steps: [
+      "点燃肉桂棒，用火焰熏香古典杯内壁（肉桂熏杯，不可省略）",
+      "杯中放入大冰块",
+      "倒入威士忌与杏仁力娇酒",
+      "搅拌至冰凉，肉桂棒装饰",
+    ],
+    video: "https://www.bilibili.com/",
+    story: "1972 年《教父》电影上映后风靡全球，这杯以杏仁甜香平衡威士忌烈度的酒，从此成为黑帮电影迷的仪式感之选。",
+  },
+  {
     id: "cosmopolitan", name: "大都会", en: "Cosmopolitan", cat: "经典", base: "伏特加",
     level: "简单", abv: "20%", time: "3 分钟", glass: "马天尼杯", emoji: "🩷",
     color: "#C6185C", tags: ["果香", "酸", "甜", "粉红"],
