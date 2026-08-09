@@ -457,7 +457,74 @@ export const SPIRITS: Spirit[] = [
 ];
 
 // 装饰性材料（缺了不影响做）
-export const DECOR_ITEMS = ["橙皮", "细盐", "冰块", "蛋白", "薄荷", "柠檬片"];
+export const DECOR_ITEMS = ["橙皮", "细盐", "冰块", "大冰块", "蛋白", "薄荷", "柠檬片", "橙片", "肉桂棒", "菠萝角"];
+
+// —— 酒柜自动汇总：从所有配方提取材料，自动归类 ——
+export interface StockMat {
+  name: string;
+  emoji: string;
+  need: number; // 多少款酒用到
+  in: string[]; // 哪些酒用到
+}
+
+// 酒类关键词 → 归入「酒类」组
+const LIQUOR_KEYS = ["伏特加", "威士忌", "金酒", "朗姆", "龙舌兰", "白兰地", "力娇酒", "味美思", "金巴利", "苦精", "啤酒", "甜味美思"];
+
+// 工具（配料里出现工具名时跳过；工具在配方 tools 字段单独管理）
+const TOOL_KEYS = ["古典杯", "吧勺", "捣棒", "摇壶", "滤冰器", "量酒器", "高球杯", "飓风杯", "马天尼杯", "冰杯", "吸管"];
+
+// 材料名归一化：同一材料的不同写法合并
+const NAME_FIX: Record<string, string> = {
+  "君度": "君度力娇酒",
+  "小瓶伏特加": "伏特加",
+  "小瓶威士忌": "威士忌",
+  "尊美醇威士忌": "威士忌",
+  "白朗姆酒": "朗姆酒",
+  "瓶装冰红茶": "冰红茶",
+  "凯撒黄油啤酒": "黄油啤酒",
+  "柠檬": "柠檬汁", // 有柠檬就能挤汁
+  "青柠": "青柠汁", // 有青柠就能挤汁
+};
+
+function emojiFor(name: string): string {
+  if (LIQUOR_KEYS.some((k) => name.includes(k))) return "🍾";
+  if (name.includes("汁") || name.includes("柠檬") || name.includes("青柠")) return "🍋";
+  if (name.includes("可乐") || name.includes("苏打") || name.includes("汽水")) return "🥤";
+  if (name.includes("冰茶") || name.includes("咖啡")) return "☕";
+  if (name.includes("养乐多") || name.includes("椰奶")) return "🥛";
+  if (name.includes("糖浆")) return "🍯";
+  if (name.includes("橙")) return "🍊";
+  if (name.includes("菠萝")) return "🍍";
+  return "🧴";
+}
+
+export function buildMaterialGroups() {
+  const map = new Map<string, StockMat>();
+  ALL_COCKTAILS.forEach((c) => {
+    c.ingredients.forEach((i) => {
+      if (DECOR_ITEMS.includes(i.name) || i.amt === "适量" || i.amt === "满杯") return;
+      if (TOOL_KEYS.includes(i.name)) return;
+      const norm = NAME_FIX[i.name] || i.name;
+      const cur = map.get(norm) || { name: norm, emoji: emojiFor(norm), need: 0, in: [] as string[] };
+      cur.need += 1;
+      if (!cur.in.includes(c.name)) cur.in.push(c.name);
+      map.set(norm, cur);
+    });
+  });
+  const all = Array.from(map.values()).sort((a, b) => b.need - a.need);
+  const spirits = all.filter((m) => LIQUOR_KEYS.some((k) => m.name.includes(k)));
+  const extras = all.filter((m) => !LIQUOR_KEYS.some((k) => m.name.includes(k)));
+  return { spirits, extras };
+}
+
+// 计算某杯还缺哪些材料（装饰/适量/工具除外），名字归一化后判断
+export function missingFor(c: Cocktail, stockIn: Set<string>): string[] {
+  const stock = normStock(stockIn);
+  return c.ingredients
+    .filter((i) => !DECOR_ITEMS.includes(i.name) && i.amt !== "适量" && i.amt !== "满杯" && !TOOL_KEYS.includes(i.name))
+    .filter((i) => !stock.has(NAME_FIX[i.name] || i.name))
+    .map((i) => NAME_FIX[i.name] || i.name);
+}
 
 // 三档匹配逻辑
 export interface TierResult {
@@ -466,11 +533,21 @@ export interface TierResult {
   near: Cocktail[];
 }
 
-export function matchTiers(stock: Set<string>, list: Cocktail[] = ALL_COCKTAILS): TierResult {
+// 勾选状态归一化：存储时统一用标准名
+export function normStock(stock: Set<string>): Set<string> {
+  const out = new Set<string>();
+  stock.forEach((n) => out.add(NAME_FIX[n] || n));
+  return out;
+}
+
+export function matchTiers(stockIn: Set<string>, list: Cocktail[] = ALL_COCKTAILS): TierResult {
+  const stock = normStock(stockIn);
   const tiers: TierResult = { ok: [], near: [], simple: [] };
-  list.filter((c) => !c.conv).forEach((c) => {
-    const need = c.ingredients.filter((i) => !DECOR_ITEMS.includes(i.name) && !["适量", "满杯"].includes(i.amt));
-    const have = need.filter((i) => stock.has(i.name));
+  list.forEach((c) => {
+    const need = c.ingredients.filter(
+      (i) => !DECOR_ITEMS.includes(i.name) && !["适量", "满杯"].includes(i.amt) && !TOOL_KEYS.includes(i.name)
+    );
+    const have = need.filter((i) => stock.has(NAME_FIX[i.name] || i.name));
     const missing = need.length - have.length;
     const toolsOk = (c.tools || []).every((t) => stock.has(t));
     if (missing === 0 && toolsOk) tiers.ok.push(c);
