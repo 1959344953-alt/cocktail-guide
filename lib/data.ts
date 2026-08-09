@@ -467,6 +467,98 @@ export interface StockMat {
   in: string[]; // 哪些酒用到
 }
 
+// 便利店代替品：材料 → 可用代替方案（基酒不可代替）
+export interface Substitute {
+  name: string; // 代替品名
+  brand?: string; // 品牌/类型
+  price: string; // 参考价（便利店常见价）
+  shops: string[]; // 常见能买到的店
+  note?: string; // 备注
+  ratio?: string; // 用量参考
+}
+
+export const SUBSTITUTES: Record<string, Substitute[]> = {
+  "柠檬汁": [
+    { name: "水溶C100", brand: "农夫山泉", price: "≈6元/瓶", shops: ["全家", "711", "罗森", "美宜佳"], ratio: "1:1 直接代替" },
+    { name: "鲜柠檬现挤", price: "≈3元/个", shops: ["永辉", "盒马", "菜市场"], note: "半个柠檬≈15ml 柠檬汁", ratio: "半个≈20ml" },
+    { name: "柠檬汽水", brand: "维他", price: "≈5元/瓶", shops: ["全家", "711", "美宜佳"], note: "甜度偏高，糖浆减半", ratio: "代替+减糖" },
+  ],
+  "青柠汁": [
+    { name: "水溶C100", brand: "农夫山泉", price: "≈6元/瓶", shops: ["全家", "711", "罗森", "美宜佳"], ratio: "1:1 直接代替" },
+    { name: "青柠味苏打水", price: "≈5元/罐", shops: ["711", "罗森"], note: "带气泡，做长饮更合适", ratio: "1:1" },
+    { name: "鲜青柠现挤", price: "≈2元/个", shops: ["盒马", "菜市场"], ratio: "1个≈20ml" },
+  ],
+  "橙汁": [
+    { name: "美汁源果粒橙", brand: "可口可乐", price: "≈5元/瓶", shops: ["全家", "711", "罗森", "美宜佳"], ratio: "1:1" },
+    { name: "味全每日C橙汁", price: "≈9元/瓶", shops: ["全家", "711", "罗森"], note: "接近鲜榨口感", ratio: "1:1" },
+    { name: "鲜橙现榨", price: "≈4元/个", shops: ["永辉", "盒马"], note: "2个橙子≈120ml", ratio: "2个≈120ml" },
+  ],
+  "菠萝汁": [
+    { name: "都乐菠萝汁", price: "≈8元/瓶", shops: ["罗森", "711"], ratio: "1:1" },
+    { name: "菠萝味汽水", brand: "醒目", price: "≈4元/罐", shops: ["全家", "美宜佳"], note: "甜度高，糖浆减半", ratio: "代替+减糖" },
+    { name: "菠萝罐头汁", price: "≈7元/罐", shops: ["永辉", "大润发"], note: "罐头里的汁也能用", ratio: "1:1" },
+  ],
+  "蔓越莓汁": [
+    { name: "蔓越莓汁", brand: "优鲜沛", price: "≈15元/瓶", shops: ["盒马", "永辉", "山姆"], ratio: "1:1" },
+    { name: "草莓汁/红莓汁", price: "≈10元/瓶", shops: ["盒马", "罗森"], note: "颜色口感接近", ratio: "1:1" },
+  ],
+  "可乐": [
+    { name: "可口可乐", price: "≈4元/罐", shops: ["所有便利店"], note: "本身就是要用的", ratio: "1:1" },
+    { name: "百事可乐", price: "≈4元/罐", shops: ["所有便利店"], ratio: "1:1" },
+  ],
+  "柠檬味汽水": [
+    { name: "雪碧", price: "≈4元/罐", shops: ["所有便利店"], ratio: "1:1" },
+    { name: "七喜", price: "≈4元/罐", shops: ["所有便利店"], ratio: "1:1" },
+    { name: "屈臣氏柠檬草味苏打", price: "≈6元/罐", shops: ["全家", "711"], ratio: "1:1" },
+  ],
+  "苏打水": [
+    { name: "屈臣氏苏打水", price: "≈5元/罐", shops: ["全家", "711", "罗森", "美宜佳"], ratio: "1:1" },
+    { name: "巴黎水", price: "≈10元/瓶", shops: ["全家", "711", "罗森"], note: "气更足更高级", ratio: "1:1" },
+    { name: "象牌苏打水", price: "≈7元/瓶", shops: ["711", "罗森", "盒马"], note: "泰式气泡感", ratio: "1:1" },
+  ],
+  "糖浆": [
+    { name: "蜂蜜", price: "≈15元/瓶", shops: ["所有便利店", "永辉"], note: "风味更丰富", ratio: "1:1（甜度≈1.2倍）" },
+    { name: "白糖+热水", price: "≈3元/包", shops: ["所有便利店"], note: "1勺糖+1勺热水化开", ratio: "1:1" },
+    { name: "枫糖浆", price: "≈20元/瓶", shops: ["盒马", "山姆"], note: "焦糖风味", ratio: "1:1" },
+  ],
+  "石榴糖浆": [
+    { name: "红石榴汁", price: "≈12元/瓶", shops: ["盒马", "山姆"], note: "调色调味都接近", ratio: "1:1" },
+    { name: "草莓糖浆", price: "≈15元/瓶", shops: ["盒马"], note: "粉色效果接近", ratio: "1:1" },
+    { name: "红糖水", price: "≈3元", shops: ["家里有"], note: "颜色偏深，风味略不同", ratio: "1:1" },
+  ],
+  "椰奶": [
+    { name: "椰树椰汁", price: "≈6元/瓶", shops: ["所有便利店"], ratio: "1:1" },
+    { name: "菲诺厚椰乳", price: "≈8元/盒", shops: ["全家", "711", "罗森"], note: "更浓郁，做椰林飘香更好喝", ratio: "1:1" },
+  ],
+  "养乐多": [
+    { name: "养乐多", price: "≈11元/排(5瓶)", shops: ["所有便利店"], note: "本身就是要用的", ratio: "1:1" },
+    { name: "蒙牛优益C", price: "≈8元/瓶", shops: ["所有便利店"], note: "口感接近，量更足", ratio: "1瓶≈2瓶养乐多" },
+    { name: "味全乳酸菌", price: "≈8元/瓶", shops: ["全家", "711"], ratio: "1瓶≈2瓶" },
+  ],
+  "冰红茶": [
+    { name: "统一冰红茶", price: "≈4元/瓶", shops: ["所有便利店"], ratio: "1:1" },
+    { name: "康师傅冰红茶", price: "≈4元/瓶", shops: ["所有便利店"], ratio: "1:1" },
+  ],
+  "浓缩咖啡": [
+    { name: "便利店现磨美式", price: "≈8元/杯", shops: ["711", "罗森", "全家"], note: "买中杯，放凉再用", ratio: "30ml≈1份浓缩" },
+    { name: "雀巢速溶黑咖啡", price: "≈1.5元/条", shops: ["所有便利店"], note: "1条+20ml热水化开", ratio: "1条≈1份浓缩" },
+    { name: "三顿半冻干粉", price: "≈6元/颗", shops: ["盒马", "罗森"], ratio: "1颗≈1份浓缩" },
+  ],
+  "黄油啤酒": [
+    { name: "健力士黑啤", price: "≈12元/罐", shops: ["711", "罗森", "盒马"], note: "原版「汽车炸弹」就是用黑啤", ratio: "1:1" },
+    { name: "普通黄啤", price: "≈6元/罐", shops: ["所有便利店"], note: "风味略淡", ratio: "1:1" },
+  ],
+  "苦精": [
+    { name: "安高天娜苦精", price: "≈25元/瓶", shops: ["盒马", "京东到家"], note: "用量极小，一瓶用一年", ratio: "2-3滴" },
+    { name: "肉桂皮+丁香泡酒", price: "≈5元", shops: ["家里有"], note: "自制香料苦精", ratio: "几滴" },
+  ],
+};
+
+// 判断某材料是否可被代替（酒类除外）
+export function hasSub(name: string): boolean {
+  return !!SUBSTITUTES[NAME_FIX[name] || name]?.length;
+}
+
 // 酒类关键词 → 归入「酒类」组
 const LIQUOR_KEYS = ["伏特加", "威士忌", "金酒", "朗姆", "龙舌兰", "白兰地", "力娇酒", "味美思", "金巴利", "苦精", "啤酒", "甜味美思"];
 
@@ -530,7 +622,8 @@ export function missingFor(c: Cocktail, stockIn: Set<string>): string[] {
 export interface TierResult {
   ok: Cocktail[];
   simple: Cocktail[];
-  near: Cocktail[];
+  sub: Cocktail[]; // 材料可用便利店代替品（差1-2样但都能代替）
+  near: Cocktail[]; // 差1-2样且需购买
 }
 
 // 勾选状态归一化：存储时统一用标准名
@@ -542,17 +635,24 @@ export function normStock(stock: Set<string>): Set<string> {
 
 export function matchTiers(stockIn: Set<string>, list: Cocktail[] = ALL_COCKTAILS): TierResult {
   const stock = normStock(stockIn);
-  const tiers: TierResult = { ok: [], near: [], simple: [] };
+  const tiers: TierResult = { ok: [], near: [], simple: [], sub: [] };
   list.forEach((c) => {
     const need = c.ingredients.filter(
       (i) => !DECOR_ITEMS.includes(i.name) && !["适量", "满杯"].includes(i.amt) && !TOOL_KEYS.includes(i.name)
     );
     const have = need.filter((i) => stock.has(NAME_FIX[i.name] || i.name));
     const missing = need.length - have.length;
+    const missingItems = need
+      .filter((i) => !stock.has(NAME_FIX[i.name] || i.name))
+      .map((i) => NAME_FIX[i.name] || i.name);
     const toolsOk = (c.tools || []).every((t) => stock.has(t));
+    // 相关性：勾选的材料里至少有一个出现在配方中（否则不推荐无关酒）
+    const related = have.length > 0 || missing === 0;
+    if (!related) return;
     if (missing === 0 && toolsOk) tiers.ok.push(c);
     else if (missing === 0) tiers.simple.push(c);
-    else if (missing === 1) tiers.near.push(c);
+    else if (missing <= 2 && missingItems.every((m) => hasSub(m))) tiers.sub.push(c); // 缺的都能代替
+    else if (missing <= 2) tiers.near.push(c); // 缺1-2样需购买
   });
   return tiers;
 }
