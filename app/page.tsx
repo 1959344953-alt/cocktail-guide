@@ -21,7 +21,7 @@ export default function HomePage() {
           <div
             className="relative rounded-[16px] overflow-hidden border border-[--line] p-5 md:p-10 shadow-[0_10px_30px_rgba(0,0,0,.45)] bg-cover bg-center"
             style={{
-              backgroundImage: `linear-gradient(165deg, rgba(20,16,24,.88) 0%, rgba(20,16,24,.72) 55%, rgba(20,16,24,.88) 100%), url(${hero.photo})`,
+              backgroundImage: `linear-gradient(165deg, rgba(20,16,24,.9) 0%, rgba(20,16,24,.72) 55%, rgba(20,16,24,.9) 100%), url(https://images.pexels.com/photos/7447014/pexels-photo-7447014.jpeg?w=900&q=80)`,
             }}
           >
             <div className="relative z-[1]">
@@ -45,7 +45,7 @@ export default function HomePage() {
           {/* PC 右侧大图 */}
           <div
             className="hidden md:block h-[320px] rounded-[20px] border border-[--line] bg-cover bg-center shadow-[0_10px_30px_rgba(0,0,0,.5)]"
-            style={{ backgroundImage: `linear-gradient(160deg, rgba(201,162,75,.12), rgba(16,10,18,.3)), url(${hero.photo})` }}
+            style={{ backgroundImage: `linear-gradient(160deg, rgba(201,162,75,.12), rgba(16,10,18,.3)), url(https://images.pexels.com/photos/9566383/pexels-photo-9566383.jpeg?w=900&q=80)` }}
           />
         </div>
 
