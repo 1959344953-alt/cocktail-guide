@@ -225,14 +225,16 @@ function Receipt({
 // 酒卡片 + 采购按钮
 function DrinkCard({ c, stock, onBuy }: { c: Cocktail; stock: Set<string>; onBuy: (c: Cocktail) => void }) {
   return (
-    <div className="relative">
+    <div className="bg-[--panel] border border-[--line] rounded-[16px] overflow-hidden">
       <CocktailCard c={c} />
-      <button
-        onClick={() => onBuy(c)}
-        className="absolute bottom-2 right-2 text-[11px] no-underline rounded-full px-2.5 py-1 bg-[rgba(201,162,75,.15)] border border-[--gold] text-[--gold2] cursor-pointer hover:bg-[rgba(201,162,75,.3)] transition-colors"
-      >
-        🧾 采购单
-      </button>
+      <div className="px-3 pb-3 -mt-1">
+        <button
+          onClick={() => onBuy(c)}
+          className="w-full text-[12px] no-underline rounded-[10px] py-1.5 bg-[rgba(201,162,75,.12)] border border-[--gold] text-[--gold2] cursor-pointer hover:bg-[rgba(201,162,75,.28)] transition-colors"
+        >
+          🧾 采购单
+        </button>
+      </div>
     </div>
   );
 }
@@ -382,7 +384,7 @@ export default function BarClient() {
                           ))}
                           <button
                             onClick={() => buyThis(c)}
-                            className="mt-1 text-[11px] rounded-full px-2.5 py-1 bg-[rgba(201,162,75,.15)] border border-[--gold] text-[--gold2] cursor-pointer hover:bg-[rgba(201,162,75,.3)] transition-colors"
+                            className="mt-1.5 w-full text-[12px] rounded-[10px] py-1.5 bg-[rgba(201,162,75,.12)] border border-[--gold] text-[--gold2] cursor-pointer hover:bg-[rgba(201,162,75,.28)] transition-colors"
                           >
                             🧾 采购单
                           </button>
@@ -404,7 +406,7 @@ export default function BarClient() {
                           <div className="text-[11px] text-[#e08a7a]">还差：{missingFor(c, stock).join("、")}</div>
                           <button
                             onClick={() => buyThis(c)}
-                            className="mt-1 text-[11px] rounded-full px-2.5 py-1 bg-[rgba(201,162,75,.15)] border border-[--gold] text-[--gold2] cursor-pointer hover:bg-[rgba(201,162,75,.3)] transition-colors"
+                            className="mt-1.5 w-full text-[12px] rounded-[10px] py-1.5 bg-[rgba(201,162,75,.12)] border border-[--gold] text-[--gold2] cursor-pointer hover:bg-[rgba(201,162,75,.28)] transition-colors"
                           >
                             🧾 采购单
                           </button>
