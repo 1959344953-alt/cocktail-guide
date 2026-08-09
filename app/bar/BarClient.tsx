@@ -12,6 +12,7 @@ import {
   type StockMat,
   type Substitute,
 } from "@/lib/data";
+import type { Cocktail, Ingredient } from "@/lib/types";
 import { CocktailCard, TabBar, TopBar } from "@/components/ui";
 
 function MaterialGrid({
@@ -72,77 +73,147 @@ function priceNum(s: Substitute): number {
 
 // —— 购物小票 ——
 function Receipt({
+  selected,
+  stock,
   subList,
   buyList,
-  selectedCount,
 }: {
+  selected: Cocktail | null;
+  stock: Set<string>;
   subList: { item: string; subs: Substitute[] }[];
-  buyList: { item: string; usedIn: string[] }[];
-  selectedCount: number;
+  buyList: { item: string }[];
 }) {
   const today = new Date();
   const dateStr = `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, "0")}.${String(today.getDate()).padStart(2, "0")}`;
+  const line = <div className="border-t border-dashed border-[#c9b98a] my-2" />;
 
-  // 合计：代替品价格 + 基酒按 50 元/瓶估算
+  // 单杯模式：这杯酒缺的材料
+  const cMissing = useMemo(() => (selected ? missingFor(selected, stock) : []), [selected, stock]);
+  const cSubs = cMissing.filter((m) => hasSub(m));
+  const cBuys = cMissing.filter((m) => !hasSub(m));
+  const cHave = selected
+    ? selected.ingredients
+        .filter((i: Ingredient) => !["适量", "满杯"].includes(i.amt))
+        .map((i: Ingredient) => i.name)
+        .filter((n: string) => stock.has(n))
+    : [];
+
+  // 合计
   const subTotal = subList.reduce((sum, { subs }) => sum + priceNum(subs[0]), 0);
   const buyTotal = buyList.length * 50;
-  const total = subTotal + buyTotal;
+  const cSubTotal = cSubs.reduce((sum, m) => sum + priceNum(SUBSTITUTES[m][0]), 0);
+  const cBuyTotal = cBuys.length * 50;
 
-  const line = <div className="border-t border-dashed border-[#c9b98a] my-2" />;
+  const isSingle = !!selected;
 
   return (
     <div className="mt-6">
-      <div className="text-[13px] font-bold text-[--gold2] mb-2">🧾 采购小票</div>
-      <div className="bg-[#f5efdf] text-[#3a3024] rounded-[6px] p-4 shadow-[0_8px_30px_rgba(0,0,0,.45)] font-mono text-[12px] leading-[1.7] relative">
+      <div className="flex items-center justify-between mb-2">
+        <div className="text-[13px] font-bold text-[--gold2]">🧾 {isSingle ? `采购单 · ${selected!.name}` : "采购小票（汇总）"}</div>
+        {isSingle && (
+          <button
+            onClick={() => {}}
+            className="text-[11px] text-[--muted] underline underline-offset-2 cursor-pointer"
+            data-back-to-all
+          >
+            返回汇总
+          </button>
+        )}
+      </div>
+      <div className="bg-[#f5efdf] text-[#3a3024] rounded-[6px] p-4 shadow-[0_8px_30px_rgba(0,0,0,.45)] font-mono text-[12px] leading-[1.7]">
         {/* 小票头 */}
         <div className="text-center border-b border-dashed border-[#c9b98a] pb-2 mb-2">
           <div className="font-bold text-[14px] tracking-[2px]">调 酒 指 南</div>
           <div className="text-[10px] text-[#8a7a5a]">MIXOLOGY ALMANAC · 采购单</div>
-          <div className="text-[10px] text-[#8a7a5a]">{dateStr} · 已选 {selectedCount} 样</div>
+          <div className="text-[10px] text-[#8a7a5a]">
+            {dateStr} · {isSingle ? selected!.name : "全部推荐"}
+          </div>
         </div>
 
-        {subList.length === 0 && buyList.length === 0 ? (
-          <div className="text-center py-4">
-            <div className="text-[18px]">🎉</div>
-            <div className="font-bold">什么都不缺，开调吧！</div>
-            <div className="text-[10px] text-[#8a7a5a]">本单免费</div>
-          </div>
-        ) : (
+        {isSingle ? (
           <>
-            {/* 代替品行 */}
-            {subList.map(({ item, subs }) => (
-              <div key={item} className="mb-1">
+            {/* 单杯模式 */}
+            {cHave.length > 0 && (
+              <div className="text-[#8a7a5a] mb-1">已有: {cHave.join("、")} ✓</div>
+            )}
+            {cSubs.map((m) => (
+              <div key={m} className="mb-1">
                 <div className="flex justify-between">
-                  <span className="font-bold">◎ {item}</span>
-                  <span className="text-[#8a7a5a]">{subs[0].price}</span>
+                  <span className="font-bold">◎ {m}</span>
+                  <span className="text-[#8a7a5a]">{SUBSTITUTES[m][0].price}</span>
                 </div>
                 <div className="pl-4 text-[#8a7a5a]">
-                  → {subs[0].name}
-                  {subs[1] ? <span className="ml-2">(备选: {subs[1].name})</span> : null}
+                  → {SUBSTITUTES[m][0].name}
+                  {SUBSTITUTES[m][1] ? <span className="ml-2">(备选: {SUBSTITUTES[m][1].name})</span> : null}
                 </div>
               </div>
             ))}
-
-            {/* 基酒行 */}
-            {buyList.map(({ item }) => (
-              <div key={item} className="flex justify-between mb-0.5">
-                <span className="font-bold">◎ {item}</span>
-                <span className="text-[#8a7a5a]">≈50元</span>
+            {cBuys.map((m) => (
+              <div key={m} className="flex justify-between mb-0.5">
+                <span className="font-bold">◎ {m}</span>
+                <span className="text-[#8a7a5a]">≈50元/瓶</span>
               </div>
             ))}
-            {buyList.length > 0 && <div className="text-[10px] text-[#8a7a5a] pl-4">基酒按常见价估算，酒类专营店/网购</div>}
+            {cBuys.length > 0 && <div className="text-[10px] text-[#8a7a5a] pl-4">基酒可复用，调多杯更划算</div>}
 
-            {line}
-            {/* 合计 */}
-            <div className="flex justify-between font-bold text-[13px]">
-              <span>合计（参考）</span>
-              <span>≈ ¥{total}</span>
-            </div>
-            <div className="text-[9px] text-[#8a7a5a] text-right">代替品按推荐项单价估算，以店内实际为准</div>
+            {cMissing.length === 0 ? (
+              <div className="text-center py-4">
+                <div className="text-[18px]">🎉</div>
+                <div className="font-bold">材料都齐了，开调！</div>
+                <div className="text-[10px] text-[#8a7a5a]">本单免费</div>
+              </div>
+            ) : (
+              <>
+                {line}
+                <div className="flex justify-between font-bold text-[13px]">
+                  <span>合计（参考）</span>
+                  <span>≈ ¥{cSubTotal + cBuyTotal}</span>
+                </div>
+                <div className="text-[9px] text-[#8a7a5a] text-right">代替品按推荐项单价，基酒按瓶估算</div>
+              </>
+            )}
+          </>
+        ) : (
+          <>
+            {/* 汇总模式 */}
+            {subList.length === 0 && buyList.length === 0 ? (
+              <div className="text-center py-4">
+                <div className="text-[18px]">🎉</div>
+                <div className="font-bold">什么都不缺，开调吧！</div>
+                <div className="text-[10px] text-[#8a7a5a]">本单免费</div>
+              </div>
+            ) : (
+              <>
+                {subList.map(({ item, subs }) => (
+                  <div key={item} className="mb-1">
+                    <div className="flex justify-between">
+                      <span className="font-bold">◎ {item}</span>
+                      <span className="text-[#8a7a5a]">{subs[0].price}</span>
+                    </div>
+                    <div className="pl-4 text-[#8a7a5a]">
+                      → {subs[0].name}
+                      {subs[1] ? <span className="ml-2">(备选: {subs[1].name})</span> : null}
+                    </div>
+                  </div>
+                ))}
+                {buyList.map(({ item }) => (
+                  <div key={item} className="flex justify-between mb-0.5">
+                    <span className="font-bold">◎ {item}</span>
+                    <span className="text-[#8a7a5a]">≈50元/瓶</span>
+                  </div>
+                ))}
+                {buyList.length > 0 && <div className="text-[10px] text-[#8a7a5a] pl-4">基酒可复用，调多杯更划算</div>}
+                {line}
+                <div className="flex justify-between font-bold text-[13px]">
+                  <span>合计（参考）</span>
+                  <span>≈ ¥{subTotal + buyTotal}</span>
+                </div>
+                <div className="text-[9px] text-[#8a7a5a] text-right">代替品按推荐项单价，基酒按瓶估算</div>
+              </>
+            )}
           </>
         )}
 
-        {/* 小票尾 */}
         <div className="text-center border-t border-dashed border-[#c9b98a] mt-2 pt-2 text-[10px] text-[#8a7a5a] tracking-[2px]">
           - - - 祝 调 酒 愉 快 - - -
         </div>
@@ -151,11 +222,28 @@ function Receipt({
   );
 }
 
+// 酒卡片 + 采购按钮
+function DrinkCard({ c, stock, onBuy }: { c: Cocktail; stock: Set<string>; onBuy: (c: Cocktail) => void }) {
+  return (
+    <div className="relative">
+      <CocktailCard c={c} />
+      <button
+        onClick={() => onBuy(c)}
+        className="absolute bottom-2 right-2 text-[11px] no-underline rounded-full px-2.5 py-1 bg-[rgba(201,162,75,.15)] border border-[--gold] text-[--gold2] cursor-pointer hover:bg-[rgba(201,162,75,.3)] transition-colors"
+      >
+        🧾 采购单
+      </button>
+    </div>
+  );
+}
+
 export default function BarClient() {
   const [stock, setStock] = useState<Set<string>>(new Set());
+  const [selected, setSelected] = useState<Cocktail | null>(null);
   const groups = useMemo(() => buildMaterialGroups(), []);
   const tiers = useMemo(() => matchTiers(stock), [stock]);
   const resultRef = useRef<HTMLDivElement>(null);
+  const receiptRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     try {
@@ -175,18 +263,31 @@ export default function BarClient() {
     setStock(next);
   };
 
-  const reset = () => setStock(new Set());
+  const reset = () => {
+    setStock(new Set());
+    setSelected(null);
+  };
 
   const goResult = () => {
     resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  const buyThis = (c: Cocktail) => {
+    setSelected(c);
+    // 滚动到小票
+    requestAnimationFrame(() => {
+      setTimeout(() => receiptRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
+    });
+  };
+
+  const backToAll = () => setSelected(null);
+
   const total = tiers.ok.length + tiers.simple.length + tiers.sub.length + tiers.near.length;
 
-  // 采购清单数据（选什么出什么）
+  // 汇总采购清单数据
   const shopping = useMemo(() => {
     const subList: { item: string; subs: Substitute[] }[] = [];
-    const buyList: { item: string; usedIn: string[] }[] = [];
+    const buyList: { item: string }[] = [];
     const seenSub = new Set<string>();
     const seenBuy = new Set<string>();
     ALL_COCKTAILS.forEach((c) => {
@@ -199,10 +300,7 @@ export default function BarClient() {
         } else {
           if (!seenBuy.has(m)) {
             seenBuy.add(m);
-            buyList.push({ item: m, usedIn: [c.name] });
-          } else {
-            const b = buyList.find((x) => x.item === m);
-            if (b && !b.usedIn.includes(c.name)) b.usedIn.push(c.name);
+            buyList.push({ item: m });
           }
         }
       });
@@ -223,7 +321,7 @@ export default function BarClient() {
           )}
         </div>
         <p className="text-[13px] text-[--muted] mb-3">
-          点选你有的材料，哪怕只有一样也会给你推荐 👇
+          点选你有的材料 → 看能调什么 → 点「采购单」看这杯要买啥 👇
         </p>
 
         <MaterialGrid title="酒类（基酒需购买）" icon="🍾" items={groups.spirits} stock={stock} onToggle={toggle} />
@@ -251,7 +349,7 @@ export default function BarClient() {
                   <div className="text-[13px] font-bold mb-2.5 text-[#8fd19a]">🍸 现在就能做（{tiers.ok.length}）</div>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 md:gap-5">
                     {tiers.ok.map((c) => (
-                      <CocktailCard key={c.id} c={c} />
+                      <DrinkCard key={c.id} c={c} stock={stock} onBuy={buyThis} />
                     ))}
                   </div>
                 </div>
@@ -262,7 +360,7 @@ export default function BarClient() {
                   <div className="text-[13px] font-bold mb-2.5 text-[var(--gold2)]">🛠 材料够，缺工具也能做（{tiers.simple.length}）</div>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 md:gap-5">
                     {tiers.simple.map((c) => (
-                      <CocktailCard key={c.id} c={c} />
+                      <DrinkCard key={c.id} c={c} stock={stock} onBuy={buyThis} />
                     ))}
                   </div>
                 </div>
@@ -282,6 +380,12 @@ export default function BarClient() {
                               <small className="text-[--gold2]"> {SUBSTITUTES[m][0].price}</small>
                             </div>
                           ))}
+                          <button
+                            onClick={() => buyThis(c)}
+                            className="mt-1 text-[11px] rounded-full px-2.5 py-1 bg-[rgba(201,162,75,.15)] border border-[--gold] text-[--gold2] cursor-pointer hover:bg-[rgba(201,162,75,.3)] transition-colors"
+                          >
+                            🧾 采购单
+                          </button>
                         </div>
                       </div>
                     ))}
@@ -298,7 +402,12 @@ export default function BarClient() {
                         <CocktailCard c={c} />
                         <div className="px-3 pb-3 -mt-1">
                           <div className="text-[11px] text-[#e08a7a]">还差：{missingFor(c, stock).join("、")}</div>
-                          <div className="text-[10px] text-[--muted] mt-0.5">对应采购小票 👇</div>
+                          <button
+                            onClick={() => buyThis(c)}
+                            className="mt-1 text-[11px] rounded-full px-2.5 py-1 bg-[rgba(201,162,75,.15)] border border-[--gold] text-[--gold2] cursor-pointer hover:bg-[rgba(201,162,75,.3)] transition-colors"
+                          >
+                            🧾 采购单
+                          </button>
                         </div>
                       </div>
                     ))}
@@ -313,14 +422,17 @@ export default function BarClient() {
           )}
         </div>
 
-        {/* 采购小票：选什么出什么 */}
+        {/* 采购小票 */}
         {stock.size > 0 && (
-          <>
-            <Receipt subList={shopping.subList} buyList={shopping.buyList} selectedCount={stock.size} />
+          <div ref={receiptRef} className="scroll-mt-[110px]" onClick={(e) => {
+            const t = e.target as HTMLElement;
+            if (t.dataset.backToAll !== undefined) backToAll();
+          }}>
+            <Receipt selected={selected} stock={stock} subList={shopping.subList} buyList={shopping.buyList} />
             <Link href="/convenience" className="mt-3 block text-center text-[13px] text-[--gold2] no-underline">
               🏪 便利店调酒专区（这些原料便利店都能买到）→
             </Link>
-          </>
+          </div>
         )}
       </div>
       <TabBar active="/bar" />
