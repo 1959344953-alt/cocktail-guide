@@ -25,6 +25,7 @@ export interface Cocktail {
   steps: string[];
   video: string;
   story: string;
+  lore?: string; // 酒语：这杯酒的浪漫传说与意象解读
   conv?: boolean;
 }
 

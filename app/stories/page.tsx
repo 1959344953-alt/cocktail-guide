@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { STORIES, SPIRITS } from "@/lib/data";
+import { STORIES, SPIRITS, GLOSSARY } from "@/lib/data";
 import { Section, TabBar, TopBar } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "调酒故事与知识文化",
-  description: "鸡尾酒背后的故事：海明威与莫吉托、禁酒令如何催生现代鸡尾酒、为什么有的酒要摇有的要搅，以及六大基酒图鉴。",
+  description: "调酒科普（酸酒/高球/菲士/古典等术语）、鸡尾酒背后的故事、以及六大基酒图鉴。",
 };
 
 export default function StoriesPage() {
@@ -35,6 +35,27 @@ export default function StoriesPage() {
             </div>
           </details>
         ))}
+
+        <Section title="调酒科普 · 入门术语" />
+        <div className="md:grid md:grid-cols-2 md:gap-4">
+          {GLOSSARY.map((g) => (
+            <details
+              key={g.term}
+              className="bg-[--panel] border border-[--line] rounded-[16px] p-4 mb-3.5 open:border-[--gold] transition-colors md:mb-0"
+            >
+              <summary className="flex items-center gap-3 cursor-pointer list-none">
+                <span className="text-[26px] flex-none">{g.emoji}</span>
+                <span>
+                  <span className="serif text-[16px] block">{g.term}</span>
+                  <span className="text-[11px] tracking-[1px] text-[--gold2]">{g.en}</span>
+                </span>
+              </summary>
+              <p className="mt-3 pt-3 border-t border-[--line] text-[13px] text-[#a99e94] leading-[1.8]">
+                {g.desc}
+              </p>
+            </details>
+          ))}
+        </div>
 
         <Section title="基酒图鉴" />
         <div className="grid grid-cols-3 md:grid-cols-6 gap-2.5 md:gap-4">

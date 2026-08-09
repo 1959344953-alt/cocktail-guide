@@ -151,6 +151,14 @@ export default async function CocktailDetailPage({ params }: Props) {
               </a>
             </div>
 
+            {/* 酒语 */}
+            {c.lore && (
+              <div className="bg-[linear-gradient(160deg,#2b2030,#191320)] border border-[--gold] rounded-[16px] p-4 mt-4">
+                <h2 className="serif text-[16px] text-[--gold2] mb-3">🥃 酒语</h2>
+                <p className="text-[14px] text-[#e6d9c3] leading-[1.9]">{c.lore}</p>
+              </div>
+            )}
+
             {/* 故事 */}
             <div className="bg-[--panel] border border-[--line] rounded-[16px] p-4 mt-4 mb-8 md:mb-4">
               <h2 className="serif text-[16px] text-[--gold2] mb-3">📜 背后的故事</h2>
