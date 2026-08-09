@@ -215,6 +215,23 @@ export const CONVENIENCE: Cocktail[] = [
     video: "https://www.douyin.com/",
     story: "便利店调酒的代表作，简单到只要会拧瓶盖就能做。",
   },
+  {
+    id: "cv-irishcarbomb", name: "爱尔兰汽车人炸弹", en: "Irish Carbomb", cat: "便利店", base: "威士忌",
+    level: "超简单", abv: "12%", time: "2 分钟", glass: "冰杯", emoji: "🍺", color: "#C9A24B", conv: true,
+    tags: ["麦香", "咖啡感", "便利店", "酒感强"],
+    photo: "https://images.pexels.com/photos/1612175/pexels-photo-1612175.jpeg?w=800&h=600&fit=crop",
+    tools: ["吸管"],
+    intro: "凯撒黄油啤酒遇上尊美醇威士忌——便利店版爱尔兰经典，一口下去麦香与咖啡感炸开。",
+    ingredients: [
+      { name: "凯撒黄油啤酒", amt: "1罐", note: "便利店啤酒区可买到；用黄油啤酒风味最正" },
+      { name: "尊美醇威士忌", amt: "50ml", note: "小瓶装即可，爱尔兰威士忌风味最佳" },
+      { name: "柠檬片", amt: "2片" },
+      { name: "冰块", amt: "满杯" },
+    ],
+    steps: ["冰杯加满冰块", "挤入柠檬片提香", "倒入整罐凯撒黄油啤酒", "缓慢注入尊美醇威士忌，轻微搅拌"],
+    video: "https://www.douyin.com/",
+    story: "爱尔兰经典「汽车炸弹」的便利店版本：用黄油啤酒替代黑啤，麦芽甜香与威士忌的坚果感意外合拍。",
+  },
 ];
 
 export const ALL_COCKTAILS: Cocktail[] = [...COCKTAILS, ...CONVENIENCE];
